@@ -93,7 +93,7 @@ Sys.setlocale("LC_ALL", "is_IS.UTF-8")
 #' @param from_season Integer, starting season for analysis (default: 2021)
 #'
 #' @export
-generate_model_results <- function(sex = "male", from_season = 2021) {
+generate_model_results <- function(sex = "male") {
   sex <- "male"
   # Validate input
   if (!sex %in% c("male", "female")) {
@@ -148,7 +148,8 @@ generate_model_results <- function(sex = "male", from_season = 2021) {
       away_goals
     )
 
-  posterior_goals |> arrange(date)
+  posterior_goals |> 
+    write_csv(here("results", "male", "posterior_goals.csv"))
 
   plot_dat <- posterior_goals |>
     mutate(
@@ -819,7 +820,7 @@ generate_model_results <- function(sex = "male", from_season = 2021) {
     mutate(
       team_nr = name |> parse_number(),
       type = "Samanlögð áhrif á heildarstyrk",
-      value = value / 2
+      value = value
     ) |>
     bind_rows(
       results$draws("home_advantage_def") |>
@@ -907,14 +908,15 @@ generate_model_results <- function(sex = "male", from_season = 2021) {
       guide = guide_none()
     ) +
     scale_x_continuous(
-      guide = guide_axis(cap = "both")
+      guide = guide_axis(cap = "both"),
+      breaks = seq(0, 12, by = 2)
     ) +
     scale_y_discrete(
       guide = guide_axis(cap = "both")
     ) +
     facet_wrap("type") +
     coord_cartesian(
-      xlim = c(0, 8)
+      xlim = c(0, 12)
     ) +
     theme(
       legend.position = "none",
