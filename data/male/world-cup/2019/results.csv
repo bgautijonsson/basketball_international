@@ -1,0 +1,543 @@
+date,home,away,home_score,away_score
+15.09. 12:00,Argentina,Spain,75,95
+15.09. 08:00,France,Australia,67,59
+14.09. 12:00,Serbia,Czech Republic,90,81
+14.09. 08:00,USA,Poland,87,74
+13.09. 12:00,Argentina,France,80,66
+13.09. 08:00AOT,Spain,Australia,95,88
+12.09. 13:00,Poland,Czech Republic,84,94
+12.09. 11:00,Serbia,USA,94,89
+11.09. 13:00,Australia,Czech Republic,82,70
+11.09. 11:00,USA,France,79,89
+10.09. 13:00,Spain,Poland,90,78
+10.09. 11:00,Argentina,Serbia,97,87
+09.09. 12:30,USA,Brazil,89,73
+09.09. 12:00,France,Australia,98,100
+09.09. 12:00,Germany,Canada,82,76
+09.09. 11:30,Turkey,New Zealand,101,102
+09.09. 08:30,Czech Republic,Greece,77,84
+09.09. 08:00,Dominican Republic,Lithuania,55,74
+09.09. 08:00,Jordan,Senegal,79,77
+09.09. 07:30,Japan,Montenegro,65,80
+08.09. 12:30,Spain,Serbia,81,69
+08.09. 12:00,Poland,Argentina,65,91
+08.09. 12:00,China,Nigeria,73,86
+08.09. 12:00,Iran,Philippines,95,75
+08.09. 08:30AOT,Puerto Rico,Italy,89,94
+08.09. 08:00,Venezuela,Russia,60,69
+08.09. 08:00,Ivory Coast,South Korea,71,80
+08.09. 08:00,Tunisia,Angola,86,84
+07.09. 12:30,USA,Greece,69,53
+07.09. 12:00,France,Lithuania,78,75
+07.09. 12:00,Germany,Senegal,89,78
+07.09. 11:30,Turkey,Montenegro,79,74
+07.09. 08:30,Brazil,Czech Republic,71,93
+07.09. 08:00,Australia,Dominican Republic,82,76
+07.09. 08:00,Canada,Jordan,126,71
+07.09. 07:30,New Zealand,Japan,111,81
+06.09. 12:30,Spain,Italy,67,60
+06.09. 12:00,Argentina,Venezuela,87,67
+06.09. 12:00,China,South Korea,77,73
+06.09. 12:00,Tunisia,Philippines,86,67
+06.09. 08:30,Serbia,Puerto Rico,90,47
+06.09. 08:00,Poland,Russia,79,74
+06.09. 08:00,Angola,Iran,62,71
+06.09. 08:00,Nigeria,Ivory Coast,83,66
+05.09. 12:30,Dominican Republic,France,56,90
+05.09. 12:30,USA,Japan,98,45
+05.09. 12:00,Greece,New Zealand,103,97
+05.09. 11:30,Lithuania,Australia,82,87
+05.09. 08:30,Germany,Jordan,96,62
+05.09. 08:30,Turkey,Czech Republic,76,91
+05.09. 08:00,Brazil,Montenegro,84,73
+05.09. 07:30,Canada,Senegal,82,60
+04.09. 12:30,Russia,Argentina,61,69
+04.09. 12:30,Spain,Iran,73,65
+04.09. 12:00,Venezuela,China,72,59
+04.09. 11:30,Italy,Serbia,77,92
+04.09. 08:30,Puerto Rico,Tunisia,67,64
+04.09. 08:30,South Korea,Nigeria,66,108
+04.09. 08:00,Ivory Coast,Poland,63,80
+04.09. 07:30AOT,Angola,Philippines,84,81
+03.09. 12:30,Jordan,France,64,103
+03.09. 12:30AOT,USA,Turkey,93,92
+03.09. 12:00,Brazil,Greece,79,78
+03.09. 11:30,Lithuania,Canada,92,69
+03.09. 08:30,Germany,Dominican Republic,68,70
+03.09. 08:30,Japan,Czech Republic,76,89
+03.09. 08:00,Montenegro,New Zealand,83,93
+03.09. 07:30,Australia,Senegal,81,68
+02.09. 12:30,Puerto Rico,Spain,63,73
+02.09. 12:30,South Korea,Russia,73,87
+02.09. 12:00AOT,China,Poland,76,79
+02.09. 11:30,Serbia,Philippines,126,67
+02.09. 08:30,Nigeria,Argentina,81,94
+02.09. 08:30,Tunisia,Iran,79,67
+02.09. 08:00,Venezuela,Ivory Coast,87,71
+02.09. 07:30,Italy,Angola,92,61
+01.09. 12:30,Czech Republic,USA,67,88
+01.09. 12:30,France,Germany,78,74
+01.09. 12:00,Greece,Montenegro,85,60
+01.09. 11:30,Senegal,Lithuania,47,101
+01.09. 08:30,Dominican Republic,Jordan,80,76
+01.09. 08:30,Turkey,Japan,86,67
+01.09. 08:00,New Zealand,Brazil,94,102
+01.09. 07:30,Canada,Australia,92,108
+31.08. 12:30,Argentina,South Korea,95,69
+31.08. 12:30,Spain,Tunisia,101,62
+31.08. 12:00,Ivory Coast,China,55,70
+31.08. 11:30,Philippines,Italy,62,108
+31.08. 08:30,Iran,Puerto Rico,81,83
+31.08. 08:30,Russia,Nigeria,82,77
+31.08. 08:00,Poland,Venezuela,80,69
+31.08. 07:30,Angola,Serbia,59,105
+26.02. 02:30,Mexico,Panama,78,61
+26.02. 00:30,Dominican Republic,Brazil,63,71
+26.02. 00:30,Puerto Rico,Uruguay,65,61
+26.02. 00:00,USA,Argentina,84,83
+25.02. 19:30,Poland,Netherlands,85,76
+25.02. 18:30,Spain,Turkey,74,58
+25.02. 18:00,Montenegro,Latvia,74,80
+25.02. 18:00AOT,Slovenia,Ukraine,85,84
+25.02. 17:30,Hungary,Croatia,84,65
+25.02. 17:30,Lithuania,Italy,86,73
+24.02. 23:00,United States Virgin Islands,Chile,64,59
+24.02. 20:00,Ivory Coast,Mali,69,49
+24.02. 19:30,Canada,Venezuela,95,55
+24.02. 17:30,Central African Republic,Rwanda,77,69
+24.02. 17:00,Bosnia & Herzegovina,Bulgaria,87,67
+24.02. 17:00,Germany,Greece,63,69
+24.02. 16:00,France,Czech Republic,82,66
+24.02. 15:00,Senegal,Nigeria,84,63
+24.02. 15:00,Georgia,Estonia,77,84
+24.02. 15:00,Serbia,Israel,97,76
+24.02. 14:30,Iran,Australia,85,74
+24.02. 14:30,Jordan,New Zealand,86,80
+24.02. 14:30,Kazakhstan,Philippines,75,93
+24.02. 14:30,Lebanon,South Korea,72,84
+24.02. 14:30,Qatar,Japan,48,96
+24.02. 13:00,Russia,Finland,91,76
+24.02. 10:30,Syria,China,59,90
+23.02. 20:00,Ivory Coast,Rwanda,87,60
+23.02. 17:30,Central African Republic,Nigeria,59,72
+23.02. 15:00,Senegal,Mali,62,38
+23.02. 02:30,Mexico,Uruguay,88,77
+23.02. 00:00AOT,Puerto Rico,Argentina,87,86
+23.02. 00:00,USA,Panama,111,80
+22.02. 20:00,Nigeria,Ivory Coast,46,72
+22.02. 19:30,Lebanon,New Zealand,67,69
+22.02. 19:15,Italy,Hungary,75,41
+22.02. 19:00,Netherlands,Lithuania,69,78
+22.02. 17:30,Rwanda,Senegal,41,81
+22.02. 17:30,Jordan,China,86,62
+22.02. 17:30,Latvia,Spain,62,67
+22.02. 17:00,Croatia,Poland,69,77
+22.02. 17:00,Ukraine,Montenegro,74,76
+22.02. 16:00,Turkey,Slovenia,77,58
+22.02. 15:00,Mali,Central African Republic,57,75
+22.02. 14:00,Syria,South Korea,74,87
+22.02. 00:30,Dominican Republic,Venezuela,72,67
+21.02. 23:00,United States Virgin Islands,Brazil,80,104
+21.02. 22:30,Canada,Chile,85,46
+21.02. 18:30,Greece,Georgia,81,69
+21.02. 17:30,Israel,Germany,81,77
+21.02. 17:00,Czech Republic,Bosnia & Herzegovina,69,64
+21.02. 17:00,Estonia,Serbia,71,70
+21.02. 17:00,Finland,France,76,69
+21.02. 16:00,Qatar,Philippines,46,84
+21.02. 16:00,Bulgaria,Russia,60,104
+21.02. 14:30,Iran,Japan,89,97
+21.02. 14:00,Kazakhstan,Australia,60,81
+03.12. 23:30,Chile,Dominican Republic,65,74
+03.12. 22:15,United States Virgin Islands,Venezuela,76,77
+03.12. 22:00,Brazil,Canada,67,94
+03.12. 19:15,Serbia,Greece,84,61
+03.12. 19:00,Germany,Estonia,87,70
+03.12. 18:00,Bosnia & Herzegovina,Finland,77,81
+03.12. 18:00,France,Bulgaria,77,53
+03.12. 16:30,Russia,Czech Republic,81,61
+03.12. 15:00AOT,Georgia,Israel,71,69
+03.12. 11:30,Philippines,Iran,70,78
+03.12. 10:00,Japan,Kazakhstan,86,70
+03.12. 08:35,Australia,Qatar,110,59
+03.12. 00:30,Argentina,Mexico,85,71
+02.12. 23:00,Uruguay,USA,70,78
+02.12. 22:00,Panama,Puerto Rico,70,71
+02.12. 19:15,Poland,Italy,94,78
+02.12. 19:00,Angola,Tunisia,69,63
+02.12. 18:00,Montenegro,Turkey,71,66
+02.12. 17:30,Lithuania,Croatia,79,62
+02.12. 17:00,Spain,Ukraine,72,68
+02.12. 16:30,Morocco,Chad,62,45
+02.12. 16:00,Slovenia,Latvia,77,82
+02.12. 15:00AOT,Hungary,Netherlands,91,86
+02.12. 14:00,Egypt,Cameroon,60,80
+02.12. 11:35,China,Lebanon,72,52
+02.12. 06:00,South Korea,Jordan,88,67
+02.12. 02:10,New Zealand,Syria,97,74
+01.12. 19:00,Angola,Chad,90,50
+01.12. 16:30,Morocco,Cameroon,57,63
+01.12. 14:00AOT,Egypt,Tunisia,73,64
+01.12. 00:30,Chile,United States Virgin Islands,81,63
+30.11. 22:15,Venezuela,Canada,84,76
+30.11. 21:15,Brazil,Dominican Republic,100,82
+30.11. 19:00,Cameroon,Angola,73,77
+30.11. 17:00,Bulgaria,Bosnia & Herzegovina,89,82
+30.11. 17:00,Czech Republic,France,65,79
+30.11. 17:00,Estonia,Georgia,73,80
+30.11. 17:00AOT,Finland,Russia,75,77
+30.11. 17:00,Greece,Germany,92,84
+30.11. 16:30,Chad,Egypt,58,85
+30.11. 14:00,Tunisia,Morocco,89,51
+30.11. 12:00,Israel,Serbia,83,74
+30.11. 11:30,Philippines,Kazakhstan,88,92
+30.11. 10:00,Japan,Qatar,85,47
+30.11. 08:35,Australia,Iran,76,47
+30.11. 01:30,Panama,Mexico,76,65
+30.11. 00:30,Argentina,USA,80,63
+29.11. 23:30,Uruguay,Puerto Rico,64,62
+29.11. 19:15,Italy,Lithuania,70,65
+29.11. 19:00,Netherlands,Poland,78,105
+29.11. 17:30,Latvia,Montenegro,75,84
+29.11. 17:00,Croatia,Hungary,74,69
+29.11. 17:00,Ukraine,Slovenia,82,54
+29.11. 16:00,Turkey,Spain,71,67
+29.11. 12:00,China,Syria,101,52
+29.11. 10:30,South Korea,Lebanon,84,71
+29.11. 06:10,New Zealand,Jordan,95,69
+18.09. 01:00,Panama,USA,48,78
+18.09. 00:15,Argentina,Puerto Rico,106,84
+17.09. 23:00,Chile,Canada,61,84
+17.09. 22:15,Uruguay,Mexico,63,60
+17.09. 19:00,Poland,Croatia,79,74
+17.09. 18:15,Montenegro,Ukraine,90,84
+17.09. 18:00,Slovenia,Turkey,77,86
+17.09. 17:00,Spain,Latvia,85,82
+17.09. 16:30AOT,Lithuania,Netherlands,95,93
+17.09. 16:00,Hungary,Italy,63,69
+17.09. 11:35,China,Jordan,88,79
+17.09. 11:30,Philippines,Qatar,92,81
+17.09. 11:00,South Korea,Syria,103,66
+17.09. 09:00,Australia,Kazakhstan,94,41
+17.09. 08:10,Japan,Iran,70,56
+17.09. 07:10,New Zealand,Lebanon,63,60
+17.09. 00:00Awrd,Brazil,United States Virgin Islands,20,0
+16.09. 21:00AOT,Venezuela,Dominican Republic,79,78
+16.09. 19:30,Cameroon,Egypt,58,62
+16.09. 19:00,Nigeria,Senegal,89,61
+16.09. 18:15,Serbia,Estonia,91,65
+16.09. 18:00,Bosnia & Herzegovina,Czech Republic,80,85
+16.09. 17:00,Tunisia,Angola,84,64
+16.09. 16:30,Rwanda,Central African Republic,61,68
+16.09. 16:00AOT,Germany,Israel,112,98
+16.09. 15:05,France,Finland,83,67
+16.09. 15:00,Georgia,Greece,85,86
+16.09. 15:00,Russia,Bulgaria,77,73
+16.09. 14:30,Chad,Morocco,69,63
+16.09. 14:00,Mali,Ivory Coast,59,69
+15.09. 19:30,Chad,Angola,33,75
+15.09. 19:00,Nigeria,Central African Republic,114,69
+15.09. 17:00,Tunisia,Egypt,69,47
+15.09. 16:30,Rwanda,Ivory Coast,53,71
+15.09. 14:30,Cameroon,Morocco,84,74
+15.09. 14:00,Mali,Senegal,71,82
+15.09. 02:00,USA,Uruguay,114,57
+15.09. 01:30,Mexico,Argentina,74,78
+14.09. 23:30,Puerto Rico,Panama,82,73
+14.09. 19:30,Egypt,Chad,99,83
+14.09. 19:00,Ivory Coast,Nigeria,73,84
+14.09. 18:15,Croatia,Lithuania,83,84
+14.09. 18:15,Italy,Poland,101,82
+14.09. 18:00,Netherlands,Hungary,59,74
+14.09. 17:00,Morocco,Tunisia,50,65
+14.09. 17:00,Turkey,Montenegro,79,69
+14.09. 16:30,Senegal,Rwanda,94,89
+14.09. 16:30,Latvia,Slovenia,85,74
+14.09. 16:00,Ukraine,Spain,76,65
+14.09. 14:30,Angola,Cameroon,83,76
+14.09. 14:00,Central African Republic,Mali,65,66
+14.09. 00:30,Dominican Republic,Chile,71,46
+13.09. 23:30,Canada,Brazil,85,77
+13.09. 22:30,Venezuela,United States Virgin Islands,87,73
+13.09. 18:30AOT,Lebanon,China,92,88
+13.09. 18:00,Greece,Serbia,70,63
+13.09. 17:00,Israel,Georgia,80,85
+13.09. 16:00,Czech Republic,Russia,80,78
+13.09. 16:00,Estonia,Germany,43,86
+13.09. 16:00,Finland,Bosnia & Herzegovina,85,81
+13.09. 15:30,Jordan,South Korea,75,86
+13.09. 15:00,Qatar,Australia,43,95
+13.09. 15:00,Bulgaria,France,74,68
+13.09. 14:00,Kazakhstan,Japan,70,85
+13.09. 14:00,Syria,New Zealand,66,107
+13.09. 12:30,Iran,Philippines,81,73
+03.07. 00:30,Chile,Venezuela,51,70
+03.07. 00:00,Dominican Republic,Bahamas,82,83
+02.07. 21:00,Colombia,Brazil,71,98
+02.07. 18:30,Belgium,Bosnia & Herzegovina,79,77
+02.07. 18:30,Great Britain,Israel,59,67
+02.07. 18:00,Serbia,Germany,81,88
+02.07. 17:30,Canada,United States Virgin Islands,99,69
+02.07. 16:00,Czech Republic,Bulgaria,81,75
+02.07. 16:00,Estonia,Greece,56,78
+02.07. 16:00,Russia,France,78,84
+02.07. 15:45,Finland,Iceland,91,77
+02.07. 15:00AOT,Qatar,Iraq,84,79
+02.07. 15:00,Georgia,Austria,98,73
+02.07. 11:30,Iran,Kazakhstan,88,56
+02.07. 11:30,Philippines,Australia,53,89
+02.07. 11:00,Chinese Taipei,Japan,68,108
+02.07. 01:15,Paraguay,Panama,67,74
+01.07. 23:00,Puerto Rico,Mexico,84,79
+01.07. 23:00,Uruguay,Argentina,58,102
+01.07. 21:00,Tunisia,Cameroon,56,53
+01.07. 20:00,Cuba,USA,62,93
+01.07. 19:30,Nigeria,Mali,93,53
+01.07. 19:00,Mozambique,Senegal,63,78
+01.07. 18:30,Lebanon,Syria,87,50
+01.07. 18:30,Kosovo,Poland,70,103
+01.07. 18:00,Egypt,Morocco,59,53
+01.07. 18:00,Hungary,Lithuania,50,73
+01.07. 18:00,Slovenia,Montenegro,74,87
+01.07. 17:00,Rwanda,Uganda,92,79
+01.07. 16:30,Central African Republic,Ivory Coast,69,60
+01.07. 16:30,Spain,Belarus,80,60
+01.07. 16:00,Jordan,India,114,70
+01.07. 16:00,Netherlands,Italy,81,66
+01.07. 16:00,Romania,Croatia,63,90
+01.07. 15:30,Angola,D.R. Congo,56,66
+01.07. 15:30,Chad,Guinea,80,49
+01.07. 15:00,Turkey,Sweden,77,52
+01.07. 13:00,Ukraine,Latvia,71,93
+01.07. 12:00,Hong Kong,South Korea,91,104
+01.07. 03:10,New Zealand,China,67,57
+30.06. 21:00,Chad,Tunisia,46,85
+30.06. 19:30,Rwanda,Nigeria,70,111
+30.06. 19:00,Senegal,Ivory Coast,66,61
+30.06. 18:00,Angola,Egypt,65,58
+30.06. 17:00,Uganda,Mali,80,95
+30.06. 16:30,Mozambique,Central African Republic,63,72
+30.06. 15:30AOT,D.R. Congo,Morocco,58,61
+30.06. 15:30,Guinea,Cameroon,48,65
+30.06. 01:15,Chile,Colombia,67,71
+29.06. 23:30,Canada,Dominican Republic,97,61
+29.06. 23:00,Venezuela,Brazil,72,56
+29.06. 21:00,Tunisia,Guinea,94,54
+29.06. 19:30,Nigeria,Uganda,109,66
+29.06. 19:00,Central African Republic,Senegal,82,91
+29.06. 18:30,Belgium,Russia,66,84
+29.06. 18:30,Bosnia & Herzegovina,France,52,102
+29.06. 18:30,Great Britain,Estonia,74,65
+29.06. 18:00,Cameroon,Chad,73,72
+29.06. 18:00,Egypt,D.R. Congo,63,77
+29.06. 17:30,Germany,Austria,85,63
+29.06. 17:00,Mali,Rwanda,72,82
+29.06. 17:00,Iraq,Kazakhstan,64,50
+29.06. 16:30,Ivory Coast,Mozambique,62,45
+29.06. 16:00,Czech Republic,Finland,77,73
+29.06. 15:30,Morocco,Angola,61,47
+29.06. 15:00,Bulgaria,Iceland,88,86
+29.06. 15:00,Georgia,Serbia,50,87
+29.06. 13:00,Qatar,Iran,75,77
+29.06. 11:00,Chinese Taipei,Philippines,71,93
+29.06. 10:40,Japan,Australia,79,78
+29.06. 01:30,Mexico,USA,78,70
+29.06. 01:30,Paraguay,Uruguay,49,58
+29.06. 00:00,Argentina,Panama,87,62
+29.06. 00:00,Puerto Rico,Cuba,84,80
+28.06. 21:00,United States Virgin Islands,Bahamas,84,74
+28.06. 19:00,Montenegro,Belarus,80,69
+28.06. 18:45,Italy,Croatia,72,78
+28.06. 18:30,Lebanon,Jordan,77,76
+28.06. 18:30,Kosovo,Hungary,65,81
+28.06. 18:00,Netherlands,Romania,77,52
+28.06. 18:00,Slovenia,Spain,72,83
+28.06. 17:00,Poland,Lithuania,61,79
+28.06. 17:00,Turkey,Ukraine,80,66
+28.06. 16:40,Israel,Greece,78,96
+28.06. 16:30,Sweden,Latvia,72,82
+28.06. 14:00,Syria,India,81,76
+28.06. 11:30,China,South Korea,74,82
+28.06. 07:10,New Zealand,Hong Kong,124,65
+27.02. 04:00,USA,Puerto Rico,83,75
+27.02. 01:45,Panama,Uruguay,86,75
+27.02. 01:00,Cuba,Mexico,52,75
+27.02. 00:00,Paraguay,Argentina,61,83
+26.02. 19:00,Croatia,Netherlands,82,78
+26.02. 19:00,Hungary,Poland,64,57
+26.02. 18:00,Spain,Montenegro,79,67
+26.02. 17:30,Latvia,Turkey,79,70
+26.02. 17:30,Lithuania,Kosovo,106,50
+26.02. 17:00,Jordan,Syria,87,62
+26.02. 17:00,Romania,Italy,50,101
+26.02. 17:00,Ukraine,Sweden,77,66
+26.02. 16:30,Belarus,Slovenia,93,92
+26.02. 13:30,India,Lebanon,50,90
+26.02. 12:00,Hong Kong,China,58,111
+26.02. 10:30,South Korea,New Zealand,84,93
+26.02. 01:15,Colombia,Venezuela,62,73
+26.02. 01:00,Bahamas,Canada,67,113
+25.02. 23:00,Brazil,Chile,83,58
+25.02. 21:30,United States Virgin Islands,Dominican Republic,85,113
+25.02. 19:20,Austria,Serbia,81,82
+25.02. 18:00,Mali,Nigeria,59,82
+25.02. 16:30,Finland,Bulgaria,75,70
+25.02. 16:00,Greece,Great Britain,75,70
+25.02. 16:00,Iceland,Czech Republic,76,75
+25.02. 15:30,Senegal,Mozambique,60,52
+25.02. 15:30,Uganda,Rwanda,79,63
+25.02. 15:00,Estonia,Israel,78,62
+25.02. 15:00,Georgia,Germany,77,87
+25.02. 14:30,Iran,Iraq,83,53
+25.02. 14:00,France,Belgium,64,49
+25.02. 14:00,Russia,Bosnia & Herzegovina,70,53
+25.02. 13:00AOT,Ivory Coast,Central African Republic,62,63
+25.02. 12:00,Kazakhstan,Qatar,96,63
+25.02. 11:30,Philippines,Japan,89,84
+25.02. 04:05,Australia,Chinese Taipei,88,68
+24.02. 18:00,Mali,Uganda,79,76
+24.02. 15:30,Central African Republic,Mozambique,52,59
+24.02. 15:30,Nigeria,Rwanda,108,53
+24.02. 13:00,Ivory Coast,Senegal,67,60
+24.02. 04:00,USA,Cuba,84,48
+24.02. 02:00,Mexico,Puerto Rico,80,100
+24.02. 01:15,Panama,Paraguay,82,62
+24.02. 00:00,Argentina,Uruguay,83,88
+23.02. 19:45AOT,France,Russia,75,74
+23.02. 19:45,Iceland,Finland,81,76
+23.02. 19:15,Italy,Netherlands,80,62
+23.02. 19:00,Bosnia & Herzegovina,Belgium,72,70
+23.02. 19:00,Montenegro,Slovenia,63,75
+23.02. 18:30,Germany,Serbia,79,74
+23.02. 18:00,Rwanda,Mali,74,70
+23.02. 18:00,Poland,Kosovo,90,62
+23.02. 18:00,Sweden,Turkey,59,58
+23.02. 17:45,Lithuania,Hungary,80,75
+23.02. 17:30,Latvia,Ukraine,68,82
+23.02. 17:00,Mozambique,Ivory Coast,66,53
+23.02. 17:00,Austria,Georgia,64,78
+23.02. 17:00,Croatia,Romania,56,58
+23.02. 16:30,Belarus,Spain,82,84
+23.02. 16:30,Greece,Estonia,87,75
+23.02. 16:00,Bulgaria,Czech Republic,76,78
+23.02. 15:30,Uganda,Nigeria,86,102
+23.02. 15:00,Syria,Lebanon,63,87
+23.02. 14:30,Senegal,Central African Republic,70,65
+23.02. 13:30,India,Jordan,88,102
+23.02. 12:00,Israel,Great Britain,82,75
+23.02. 11:30,China,New Zealand,73,82
+23.02. 10:30,South Korea,Hong Kong,93,72
+23.02. 01:00,Bahamas,Dominican Republic,63,96
+23.02. 00:15,Venezuela,Chile,77,56
+22.02. 22:00,Brazil,Colombia,84,49
+22.02. 21:30,United States Virgin Islands,Canada,89,118
+22.02. 14:30,Iraq,Qatar,66,77
+22.02. 14:00,Kazakhstan,Iran,54,75
+22.02. 10:30,Japan,Chinese Taipei,69,70
+22.02. 08:35,Australia,Philippines,84,68
+28.11. 01:00,Bahamas,United States Virgin Islands,85,93
+28.11. 01:00,Colombia,Chile,69,74
+28.11. 00:00,Dominican Republic,Canada,88,76
+27.11. 22:30,Brazil,Venezuela,72,60
+27.11. 19:45,France,Bosnia & Herzegovina,84,65
+27.11. 19:45,Iceland,Bulgaria,74,77
+27.11. 19:20,Austria,Germany,49,90
+27.11. 19:00,Serbia,Georgia,105,87
+27.11. 17:00,Estonia,Great Britain,73,70
+27.11. 16:30,Finland,Czech Republic,56,64
+27.11. 15:00,Greece,Israel,82,61
+27.11. 14:00AOT,Kazakhstan,Iraq,82,76
+27.11. 14:00,Russia,Belgium,76,69
+27.11. 13:30,Iran,Qatar,65,39
+27.11. 11:30,Philippines,Chinese Taipei,90,83
+27.11. 08:30,Australia,Japan,82,58
+27.11. 01:00,Cuba,Puerto Rico,72,95
+26.11. 23:30,Uruguay,Paraguay,67,49
+26.11. 22:00,USA,Mexico,91,55
+26.11. 21:00,Panama,Argentina,59,68
+26.11. 19:30,Cameroon,Tunisia,66,67
+26.11. 18:30,Spain,Slovenia,92,84
+26.11. 18:00,Hungary,Kosovo,84,76
+26.11. 17:30,Lithuania,Poland,75,55
+26.11. 17:00,D.R. Congo,Angola,64,73
+26.11. 17:00,Guinea,Chad,51,85
+26.11. 17:00,Jordan,Lebanon,87,83
+26.11. 17:00,Croatia,Italy,64,80
+26.11. 17:00,Romania,Netherlands,75,68
+26.11. 16:30,Belarus,Montenegro,67,91
+26.11. 16:00,Ukraine,Turkey,60,67
+26.11. 15:00,Latvia,Sweden,82,73
+26.11. 14:30,Morocco,Egypt,63,67
+26.11. 13:30,India,Syria,57,74
+26.11. 12:00,Hong Kong,New Zealand,74,133
+26.11. 10:00,South Korea,China,81,92
+25.11. 19:30,Cameroon,Guinea,116,78
+25.11. 17:00,Egypt,Angola,64,68
+25.11. 17:00,Tunisia,Chad,101,40
+25.11. 14:30AOT,Morocco,D.R. Congo,88,81
+25.11. 00:15,Canada,Bahamas,93,69
+25.11. 00:15,Venezuela,Colombia,85,71
+25.11. 00:00,Chile,Brazil,73,86
+25.11. 00:00,Dominican Republic,United States Virgin Islands,99,89
+24.11. 19:30,Chad,Cameroon,60,65
+24.11. 19:30,Belgium,France,59,70
+24.11. 19:30AOT,Great Britain,Greece,92,95
+24.11. 19:30,Slovenia,Belarus,87,74
+24.11. 19:15,Italy,Romania,75,70
+24.11. 19:00,Montenegro,Spain,66,79
+24.11. 19:00,Netherlands,Croatia,68,61
+24.11. 19:00,Serbia,Austria,85,64
+24.11. 18:30,Germany,Georgia,79,70
+24.11. 18:00,Kosovo,Lithuania,61,99
+24.11. 18:00,Sweden,Ukraine,76,84
+24.11. 17:45,Bosnia & Herzegovina,Russia,81,76
+24.11. 17:15,Poland,Hungary,70,60
+24.11. 17:00,Angola,Morocco,62,56
+24.11. 17:00,Guinea,Tunisia,56,96
+24.11. 17:00,Iraq,Iran,74,66
+24.11. 17:00,Bulgaria,Finland,80,82
+24.11. 17:00,Czech Republic,Iceland,89,69
+24.11. 16:00,Turkey,Latvia,85,73
+24.11. 15:00,Qatar,Kazakhstan,70,82
+24.11. 14:30AOT,D.R. Congo,Egypt,61,65
+24.11. 12:00,Israel,Estonia,88,68
+24.11. 11:00,Chinese Taipei,Australia,66,104
+24.11. 10:00,Japan,Philippines,71,77
+24.11. 03:00,Mexico,Cuba,72,66
+24.11. 00:30,Puerto Rico,USA,78,85
+24.11. 00:15,Argentina,Paraguay,96,63
+23.11. 23:00,Uruguay,Panama,86,73
+23.11. 19:00,Lebanon,India,107,72
+23.11. 15:00,Syria,Jordan,72,109
+23.11. 11:30,China,Hong Kong,96,44
+23.11. 06:10,New Zealand,South Korea,80,86
+19.08. 18:30,Albania,Netherlands,37,111
+19.08. 18:15,Kosovo,Estonia,75,69
+19.08. 17:30AOT,Portugal,Belarus,79,78
+19.08. 16:00,Armenia,Bosnia & Herzegovina,66,83
+19.08. 14:00,Sweden,Slovakia,86,82
+16.08. 18:00,Netherlands,Austria,71,78
+16.08. 17:00,Sweden,Armenia,93,70
+16.08. 16:30,Belarus,Bulgaria,70,84
+16.08. 16:00,Slovakia,Bosnia & Herzegovina,74,92
+16.08. 15:30,Estonia,North Macedonia,74,65
+12.08. 18:30,North Macedonia,Kosovo,87,74
+12.08. 18:00,Bosnia & Herzegovina,Sweden,72,88
+12.08. 18:00,Slovakia,Armenia,78,92
+12.08. 15:00,Bulgaria,Portugal,91,65
+12.08. 14:00,Austria,Albania,97,63
+09.08. 18:00,Bosnia & Herzegovina,Armenia,98,85
+09.08. 18:00,Netherlands,Albania,91,77
+09.08. 16:00,Belarus,Portugal,78,75
+09.08. 16:00,Slovakia,Sweden,68,59
+09.08. 15:30,Estonia,Kosovo,76,50
+05.08. 18:30,North Macedonia,Estonia,76,80
+05.08. 18:00,Bosnia & Herzegovina,Slovakia,84,71
+05.08. 17:30,Austria,Netherlands,72,79
+05.08. 16:00,Armenia,Sweden,82,69
+05.08. 15:00,Bulgaria,Belarus,78,68
+02.08. 18:30,Albania,Austria,51,79
+02.08. 18:15,Kosovo,North Macedonia,72,68
+02.08. 17:30,Portugal,Bulgaria,71,82
+02.08. 16:00,Armenia,Slovakia,75,61
+02.08. 16:00,Sweden,Bosnia & Herzegovina,81,73
