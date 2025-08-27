@@ -6,3 +6,10 @@
 .quarto
 
 **/**.rds
+
+
+R/get_odds.R
+R/check_odds.R
+R/check_odds_lengjan.R
+R/common/scrape_1x2.R
+R/common/lengjan_info.R
