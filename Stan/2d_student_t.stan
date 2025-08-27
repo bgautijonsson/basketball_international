@@ -274,7 +274,7 @@ generated quantities {
       off[1] = off[1] + home_advantage_off[team1_pred[n]];
       def[1] = def[1] + home_advantage_def[team1_pred[n]];
     }
-
+ 
     // Away team
     off[2] = offense[N_rounds, team2_pred[n]];
     def[2] = defense[N_rounds, team2_pred[n]];
