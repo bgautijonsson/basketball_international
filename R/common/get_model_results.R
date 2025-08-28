@@ -80,7 +80,15 @@ box::use(
     cells_row_groups,
     cells_column_labels,
     tab_header,
-    tab_footnote
+    tab_footnote,
+    gtsave,
+    cols_align,
+    md,
+    cells_title,
+    tab_options
+  ],
+  gtExtras[
+    gt_plt_bar
   ]
 )
 
@@ -148,7 +156,7 @@ generate_model_results <- function(sex = "male") {
       away_goals
     )
 
-  posterior_goals |> 
+  posterior_goals |>
     write_csv(here("results", "male", "posterior_goals.csv"))
 
   plot_dat <- posterior_goals |>
@@ -179,7 +187,7 @@ generate_model_results <- function(sex = "male") {
       .by = c(game_nr, date, home, away)
     ) |>
     filter(
-      date <= clock::date_build(2025, 08, 29)
+      date <= today() + 1
     ) |>
     mutate(
       home_win = percent(home_win, accuracy = 1),
@@ -280,7 +288,7 @@ generate_model_results <- function(sex = "male") {
       plot.margin = margin(5, 5, 5, 5)
     ) +
     labs(
-      x = "Markamismunur",
+      x = "Stigamismunur",
       y = NULL,
       colour = NULL,
       title = "Körfuboltaspá Metils",
@@ -397,12 +405,26 @@ generate_model_results <- function(sex = "male") {
     mutate(
       points = case_when(
         result == "tie" ~ 1,
-        result == name ~ 3,
+        result == name ~ 2,
         TRUE ~ 0
+      ),
+      scored = if_else(
+        name == "home",
+        home_goals,
+        away_goals
+      ),
+      conceded = if_else(
+        name == "away",
+        home_goals,
+        away_goals
       )
     ) |>
     summarise(
       base_points = sum(points),
+      base_scored = sum(scored),
+      base_conceded = sum(conceded),
+      base_wins = sum(points == 2),
+      base_losses = sum(points == 1),
       .by = c(team)
     ) |>
     arrange(desc(base_points))
@@ -442,9 +464,18 @@ generate_model_results <- function(sex = "male") {
     left_join(
       base_points
     ) |>
+    mutate_at(
+      vars(starts_with("base")),
+      coalesce,
+      0
+    ) |>
     mutate(
       base_points = coalesce(base_points, 0),
-      points = points + base_points
+      points = points + base_points,
+      wins = wins + base_wins,
+      losses = losses + base_losses,
+      scored = scored + base_scored,
+      conceded = conceded + base_conceded
     ) |>
     arrange(desc(points)) |>
     inner_join(
@@ -478,7 +509,7 @@ generate_model_results <- function(sex = "male") {
       conceded = mean(conceded),
       .by = c(team, group)
     ) |>
-    arrange(group, desc(p_top)) |>
+    arrange(group, desc(mean_points)) |>
     select(-lower_pos, -upper_pos)
 
   p_top |>
@@ -518,7 +549,7 @@ generate_model_results <- function(sex = "male") {
     cols_move_to_end(mean_points) |>
     tab_spanner(
       columns = c(scored, conceded),
-      label = "Mörk"
+      label = "Stig"
     ) |>
     tab_style(
       locations = cells_body(columns = mean_points),
@@ -558,7 +589,7 @@ generate_model_results <- function(sex = "male") {
       style = cell_text(
         align = "center"
       )
-    ) |> 
+    ) |>
     tab_footnote(
       footnote = "Líkur á að enda meðal fjögurra efstu liðanna",
       locations = cells_column_labels(p_top)
@@ -566,7 +597,10 @@ generate_model_results <- function(sex = "male") {
     tab_header(
       title = "Hvernig endar riðlakeppnin á EM karla í körfubolta?",
       subtitle = "Körfuboltalíkan Metils fengið til að spá fyrir um niðurstöðu allra leikja í riðlum"
-    ) |> 
+    ) |>
+    tab_options(
+      table.background.color = "#fdfcfc"
+    ) |>
     gtsave(
       filename = here("results", "male", "figures", "group_table.png"),
       expand = 15
@@ -749,63 +783,74 @@ generate_model_results <- function(sex = "male") {
     height = 0.7 * 8,
     scale = 1.1
   )
-  
+
   hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
-  
-  
-  plot_dat |> 
-    semi_join(groups) |> 
+
+  plot_dat |>
+    semi_join(groups) |>
     filter(
-      ((!team %in% hosts) & (loc == "Gestir")) | ((team %in% hosts) & (loc == "Heima"))
-    ) |> 
+      ((!team %in% hosts) & (loc == "Gestir")) |
+        ((team %in% hosts) & (loc == "Heima"))
+    ) |>
     distinct(
-      team, type, median
-    ) |> 
-    pivot_wider(names_from = type, values_from = median) |> 
-    select(team, Sókn, Vörn, Samtals) |> 
-    arrange(desc(Samtals)) |> 
+      team,
+      type,
+      median
+    ) |>
+    pivot_wider(names_from = type, values_from = median) |>
+    select(team, Sókn, Vörn, Samtals) |>
+    arrange(desc(Samtals)) |>
     mutate(
       Sókn = Sókn - Sókn[Samtals == min(Samtals)],
       Vörn = Vörn - Vörn[Samtals == min(Samtals)],
       Samtals = Samtals - Samtals[Samtals == min(Samtals)]
-    ) |> 
-    gt() |> 
-    fmt_number(-team, decimals = 1) |> 
-    cols_align(columns = team, "left") |> 
+    ) |>
+    gt() |>
+    fmt_number(-team, decimals = 1) |>
+    cols_align(columns = team, "left") |>
     cols_label(
       team = "",
-      Sókn = md("**Sókn**<br>*Hvað skorar liðið að jafnaði<br>mörgum stigum fleiri en Kýpur?*"),
-      Vörn = md("**Vörn**<br>*Hvað verst liðið að jafnaði gegn<br>mörgum stigum fleiri en Kýpur?*"),
-      Samtals = md("**Samtals**<br>*Með hve miklum mun myndi<br>liðið að jafnaði vinna Kýpur?*")
-    ) |> 
-    gt_plt_bar(column = Sókn, scale_type = "number", color = "#08306b") |> 
-    gt_plt_bar(column = Vörn, scale_type = "number", color = "#67000d") |> 
-    gt_plt_bar(column = Samtals, scale_type = "number", color = "#000000") |> 
+      Sókn = md(
+        "**Sókn**<br>*Hvað skorar liðið að jafnaði<br>mörgum stigum fleiri en Kýpur?*"
+      ),
+      Vörn = md(
+        "**Vörn**<br>*Hvað verst liðið að jafnaði gegn<br>mörgum stigum fleiri en Kýpur?*"
+      ),
+      Samtals = md(
+        "**Samtals**<br>*Með hve miklum mun myndi<br>liðið að jafnaði vinna Kýpur?*"
+      )
+    ) |>
+    gt_plt_bar(column = Sókn, scale_type = "number", color = "#08306b") |>
+    gt_plt_bar(column = Vörn, scale_type = "number", color = "#67000d") |>
+    gt_plt_bar(column = Samtals, scale_type = "number", color = "#000000") |>
     tab_style(
       locations = cells_title(groups = "title"),
       style = cell_text(
         weight = 1000,
         align = "left"
       )
-    ) |> 
+    ) |>
     tab_style(
       locations = cells_title(groups = "subtitle"),
       style = cell_text(
         weight = 7000,
         align = "left"
       )
-    ) |> 
+    ) |>
     tab_footnote(
       footnote = "Styrkur Finnlands, Kýpur, Lettlands og Póllands á heimavelli notaður við útreikninga",
       locations = cells_body(
         columns = team,
         rows = team %in% hosts
       )
-    ) |> 
+    ) |>
     tab_header(
       title = "Samantekt á sóknar- og varnarstyrk landsliða á EM karla í körfubolta",
       subtitle = "Til að auðvelda túlkun er liðunum borið saman við landslið Kýpur"
-    ) |> 
+    ) |>
+    tab_options(
+      table.background.color = "#fdfcfc"
+    ) |>
     gtsave(
       filename = here("results", "male", "figures", "styrkur_table.png"),
       expand = 15
@@ -941,4 +986,242 @@ generate_model_results <- function(sex = "male") {
     height = 0.6 * 8,
     scale = 1.4
   )
+
+  results$draws("off_friendly") |>
+    as_draws_df() |>
+    as_tibble() |>
+    pivot_longer(c(-.chain, -.draw, -.iteration)) |>
+    mutate(
+      team_nr = name |> parse_number(),
+      type = "Sókn",
+      value = value
+    ) |>
+    bind_rows(
+      results$draws("def_friendly") |>
+        as_draws_df() |>
+        as_tibble() |>
+        pivot_longer(c(-.chain, -.draw, -.iteration)) |>
+        mutate(
+          team_nr = name |> parse_number(),
+          type = "Vörn"
+        )
+    ) |>
+    inner_join(
+      teams,
+      by = join_by(team_nr)
+    ) |>
+    semi_join(
+      groups
+    ) |>
+    select(-name) |>
+    pivot_wider(names_from = type) |>
+    mutate(
+      Samtals = Sókn + Vörn
+    ) |>
+    pivot_longer(
+      c(Sókn, Vörn, Samtals),
+      names_to = "type",
+      values_to = "value"
+    ) |>
+    reframe(
+      median = median(value),
+      coverage = c(
+        0.025,
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        0.95,
+        0.975
+      ),
+      lower = quantile(value, 0.5 - coverage / 2),
+      upper = quantile(value, 0.5 + coverage / 2),
+      .by = c(team, type)
+    ) |>
+    mutate(
+      team = factor(
+        team,
+        levels = unique(team)[order(unique(median[
+          type == "Samtals"
+        ]))]
+      ),
+      type = fct_relevel(type, "Sókn", "Vörn", "Samtals")
+    ) |>
+    ggplot(aes(median, team)) +
+    geom_vline(
+      xintercept = 0,
+      lty = 2,
+      alpha = 0.4,
+      linewidth = 0.3
+    ) +
+    geom_hline(
+      yintercept = seq(1, nrow(teams), 2),
+      linewidth = 7,
+      alpha = 0.03
+    ) +
+    geom_point(
+      shape = "|",
+      size = 5
+    ) +
+    geom_segment(
+      aes(
+        x = lower,
+        xend = upper,
+        yend = team,
+        alpha = -coverage
+      ),
+      linewidth = 3
+    ) +
+    scale_alpha_continuous(
+      range = c(0, 0.3),
+      guide = guide_none()
+    ) +
+    scale_x_continuous(
+      guide = guide_axis(cap = "both"),
+      breaks = seq(0, 40, by = 5)
+    ) +
+    scale_y_discrete(
+      guide = guide_axis(cap = "both")
+    ) +
+    facet_wrap("type") +
+    coord_cartesian(
+      xlim = c(0, 40)
+    ) +
+    theme(
+      legend.position = "none",
+      plot.margin = margin(5, 10, 5, 5)
+    ) +
+    labs(
+      x = NULL,
+      y = NULL,
+      colour = NULL,
+      title = "Spila lið verr í vináttuleikjum?",
+      subtitle = "Skora lið færri mörk í vináttuleikjum? Fá þau á sig fleiri mörk?"
+    )
+
+  ggsave(
+    filename = here("results", "male", "figures", "friendly.png"),
+    width = 8,
+    height = 0.9 * 8,
+    scale = 1.1
+  )
 }
+
+# plot_dat |>
+#   mutate(
+#     date2 = date
+#   ) |>
+#   group_by(date2) |>
+#   dplyr::group_map(
+#     function(dat, ...) {
+#       dat |>
+#         ggplot(aes(median, max(game_nr) - game_nr + 1)) +
+#         geom_vline(
+#           xintercept = 0,
+#           lty = 2,
+#           alpha = 0.4,
+#           linewidth = 0.3
+#         ) +
+#         geom_hline(
+#           yintercept = seq(1, length(unique(dat$game_nr)), 2),
+#           linewidth = 8,
+#           alpha = 0.1
+#         ) +
+#         geom_point(
+#           shape = "|",
+#           size = 5
+#         ) +
+#         geom_segment(
+#           aes(
+#             x = lower,
+#             xend = upper,
+#             yend = max(game_nr) - game_nr + 1,
+#             alpha = -coverage
+#           ),
+#           linewidth = 3
+#         ) +
+#         geom_richtext(
+#           data = tibble(x = 1),
+#           inherit.aes = FALSE,
+#           x = -50,
+#           y = -0.55,
+#           label.colour = NA,
+#           fill = NA,
+#           label = "&larr; Heimalið vinnur",
+#           hjust = 0,
+#           size = 4.5,
+#           colour = "grey40"
+#         ) +
+#         geom_richtext(
+#           data = tibble(x = 1),
+#           inherit.aes = FALSE,
+#           x = 50,
+#           y = -0.55,
+#           label.colour = NA,
+#           fill = NA,
+#           label = "Gestir vinna &rarr;",
+#           hjust = 1,
+#           size = 4.5,
+#           colour = "grey40"
+#         ) +
+#         scale_alpha_continuous(
+#           range = c(0, 0.3),
+#           guide = guide_none()
+#         ) +
+#         scale_x_continuous(
+#           guide = guide_axis(cap = "both"),
+#           labels = \(x) abs(x)
+#         ) +
+#         scale_y_continuous(
+#           guide = guide_axis(cap = "both"),
+#           breaks = seq(length(unique(dat$game_nr)), 1),
+#           labels = \(x) {
+#             dat |>
+#               distinct(game_nr, home, away) |>
+#               pull(home)
+#           },
+#           sec.axis = sec_axis(
+#             transform = \(x) x,
+#             breaks = seq(length(unique(dat$game_nr)), 1),
+#             labels = \(x) {
+#               dat |>
+#                 distinct(game_nr, home, away) |>
+#                 pull(away)
+#             },
+#             guide = guide_axis(cap = "both")
+#           )
+#         ) +
+#         coord_cartesian(
+#           ylim = c(1, length(unique((dat$game_nr)))),
+#           xlim = c(-50, 50),
+#           clip = "off"
+#         ) +
+#         theme(
+#           legend.position = "none",
+#           plot.margin = margin(5, 5, 5, 5)
+#         ) +
+#         labs(
+#           x = "Stigamismunur",
+#           y = NULL,
+#           subtitle = unique(dat$date)
+#         )
+#     }
+#   ) |>
+#   patchwork::wrap_plots(ncol = 1)
+# labs(
+#   x = "Stigamismunur",
+#   y = NULL,
+#   colour = NULL,
+#   title = "Körfuboltaspá Metils",
+#   subtitle = str_c(
+#     "Líkindadreifing spár um úrslit næstu leikja",
+#     " | ",
+#     "Sigurlíkur merktar inni í sviga"
+#   )
+# )

@@ -20,6 +20,7 @@ data {
   matrix<lower = 0>[K, N_rounds] time_between_matches;  // Time difference between matches for each team and each round
   array[N] int<lower=0> goals1;       // Goals scored by   team 1 (home)
   array[N] int<lower=0> goals2;       // Goals scored by team 2 (away)
+  array[N] int<lower=1> division;  // Division ID for each game
   
   // Prediction data
   int<lower = 0> N_top_teams;
@@ -32,6 +33,7 @@ data {
   array[N_pred] int<lower=0, upper=1> team1_home_pred;  // Indicator whether team 1 is home for each prediction game
   vector[N_pred] pred_timediff1;
   vector[N_pred] pred_timediff2;
+  array[N_pred] int<lower=1> pred_division;  // Division ID for each prediction game
 }
 
 transformed data {
@@ -103,6 +105,9 @@ parameters {
   vector<lower = 0>[K] home_advantage_off;
   vector<lower = 0>[K] home_advantage_def;  
 
+  // Do teams play more relaxed for friendly international games?
+  vector<lower = 0>[K] off_friendly;
+  vector<lower = 0>[K] def_friendly;
 
   // Team-specific sigma parameters
   vector[K] z_sigma_team;        // Team-specific scoring variability
@@ -186,6 +191,10 @@ model {
   scale_sigma_team ~ exponential(2);
   mean_sigma_team ~ normal(2, 2);
 
+  // Prior for friendly parameter
+  off_friendly ~ normal(0, 20);
+  def_friendly ~ normal(0, 20);
+
   // Prior for mean goals
   mean_goals ~ normal(80, 10);
 
@@ -210,6 +219,14 @@ model {
     // Away team
     off[2] = offense[round2[n], team2[n]];
     def[2] = defense[round2[n], team2[n]];
+    /*
+    if (division[n] == 2) {
+      off[1] = off[1] - off_friendly[team1[n]];
+      def[1] = def[1] - def_friendly[team1[n]];
+      off[2] = off[2] - off_friendly[team2[n]];
+      def[2] = def[2] - def_friendly[team2[n]];
+    }
+    */
 
     // Expected goals
     mu[1] = mean_goals + off[1] - def[2];

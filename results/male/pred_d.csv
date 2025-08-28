@@ -1,61 +1,55 @@
 date,division,game_nr,home,away,home_timediff,away_timediff,home_nr,away_nr,team1_home_pred
-2025-08-27,1,1,Great Britain,Lithuania,5,5,31,50,0
-2025-08-27,1,2,Czech Republic,Portugal,6,11,21,62,0
-2025-08-27,1,3,Montenegro,Germany,4,4,53,30,0
-2025-08-27,1,4,Latvia,Turkey,6,4,48,79,1
-2025-08-27,1,5,Finland,Sweden,6,7,27,75,1
-2025-08-27,1,6,Serbia,Estonia,6,5,69,26,0
-2025-08-28,1,7,Georgia,Spain,7,5,29,74,0
-2025-08-28,1,8,Israel,Iceland,11,6,41,35,0
-2025-08-28,1,9,Belgium,France,11,4,8,28,0
-2025-08-28,1,10,Cyprus,Bosnia & Herzegovina,18,11,20,9,1
-2025-08-28,1,11,Greece,Italy,4,6,32,42,0
-2025-08-28,1,12,Poland,Slovenia,7,7,61,71,1
-2025-08-29,1,13,Germany,Sweden,2,2,30,75,0
-2025-08-29,1,14,Turkey,Czech Republic,2,2,79,21,0
-2025-08-29,1,15,Lithuania,Montenegro,2,2,50,53,0
-2025-08-29,1,16,Latvia,Estonia,2,2,48,26,1
-2025-08-29,1,17,Finland,Great Britain,2,2,27,31,1
-2025-08-29,1,18,Portugal,Serbia,2,2,62,69,0
-2025-08-30,1,19,Lithuania,Germany,1,1,50,30,0
-2025-08-30,1,20,Czech Republic,Estonia,1,1,21,26,0
-2025-08-30,1,21,Iceland,Belgium,2,2,35,8,0
-2025-08-30,1,22,Italy,Georgia,2,2,42,29,0
-2025-08-30,1,23,Great Britain,Sweden,1,1,31,75,0
-2025-08-30,1,24,France,Slovenia,2,2,28,71,0
-2025-08-30,1,25,Latvia,Serbia,1,1,48,69,1
-2025-08-30,1,26,Cyprus,Greece,2,2,20,32,1
-2025-08-30,1,27,Finland,Montenegro,1,1,27,53,1
-2025-08-30,1,28,Turkey,Portugal,1,1,79,62,0
-2025-08-30,1,29,Poland,Israel,2,2,61,41,1
-2025-08-30,1,30,Spain,Bosnia & Herzegovina,2,2,74,9,0
-2025-08-31,1,31,Georgia,Greece,1,1,29,32,0
-2025-08-31,1,32,Slovenia,Belgium,1,1,71,8,0
-2025-08-31,1,33,Israel,France,1,1,41,28,0
-2025-08-31,1,34,Cyprus,Spain,1,1,20,74,1
-2025-08-31,1,35,Bosnia & Herzegovina,Italy,1,1,9,42,0
-2025-08-31,1,36,Poland,Iceland,1,1,61,35,1
-2025-09-01,1,37,Sweden,Montenegro,2,2,75,53,0
-2025-09-01,1,38,Estonia,Turkey,2,2,26,79,0
-2025-09-01,1,39,Germany,Great Britain,2,2,30,31,0
-2025-09-01,1,40,Latvia,Portugal,2,2,48,62,1
-2025-09-01,1,41,Finland,Lithuania,2,2,27,50,1
-2025-09-01,1,42,Serbia,Czech Republic,2,2,69,21,0
-2025-09-02,1,43,Belgium,Israel,2,2,8,41,0
-2025-09-02,1,44,Greece,Bosnia & Herzegovina,2,2,32,9,0
-2025-09-02,1,45,Iceland,Slovenia,2,2,35,71,0
-2025-09-02,1,46,Cyprus,Georgia,2,2,20,29,1
-2025-09-02,1,47,Poland,France,2,2,61,28,1
-2025-09-02,1,48,Italy,Spain,2,2,42,74,0
-2025-09-03,1,49,Montenegro,Great Britain,2,2,53,31,0
-2025-09-03,1,50,Estonia,Portugal,2,2,26,62,0
-2025-09-03,1,51,Lithuania,Sweden,2,2,50,75,0
-2025-09-03,1,52,Latvia,Czech Republic,2,2,48,21,1
-2025-09-03,1,53,Finland,Germany,2,2,27,30,1
-2025-09-03,1,54,Turkey,Serbia,2,2,79,69,0
-2025-09-04,1,55,Bosnia & Herzegovina,Georgia,2,2,9,29,0
-2025-09-04,1,56,France,Iceland,2,2,28,35,0
-2025-09-04,1,57,Israel,Slovenia,2,2,41,71,0
-2025-09-04,1,58,Cyprus,Italy,2,2,20,42,1
-2025-09-04,1,59,Poland,Belgium,2,2,61,8,1
-2025-09-04,1,60,Spain,Greece,2,2,74,32,0
+2025-08-28,1,1,Georgia,Spain,7,5,29,73,0
+2025-08-28,1,2,Israel,Iceland,11,6,41,35,0
+2025-08-28,1,3,Belgium,France,11,4,8,28,0
+2025-08-28,1,4,Cyprus,Bosnia & Herzegovina,18,11,20,9,1
+2025-08-28,1,5,Greece,Italy,4,6,32,42,0
+2025-08-28,1,6,Poland,Slovenia,7,7,61,70,1
+2025-08-29,1,7,Germany,Sweden,2,2,30,74,0
+2025-08-29,1,8,Turkey,Czech Republic,2,2,78,21,0
+2025-08-29,1,9,Lithuania,Montenegro,2,2,50,53,0
+2025-08-29,1,10,Latvia,Estonia,2,2,48,26,1
+2025-08-29,1,11,Finland,Great Britain,2,2,27,31,1
+2025-08-29,1,12,Portugal,Serbia,2,2,62,68,0
+2025-08-30,1,13,Lithuania,Germany,1,1,50,30,0
+2025-08-30,1,14,Czech Republic,Estonia,1,1,21,26,0
+2025-08-30,1,15,Iceland,Belgium,2,2,35,8,0
+2025-08-30,1,16,Italy,Georgia,2,2,42,29,0
+2025-08-30,1,17,Great Britain,Sweden,1,1,31,74,0
+2025-08-30,1,18,France,Slovenia,2,2,28,70,0
+2025-08-30,1,19,Latvia,Serbia,1,1,48,68,1
+2025-08-30,1,20,Cyprus,Greece,2,2,20,32,1
+2025-08-30,1,21,Finland,Montenegro,1,1,27,53,1
+2025-08-30,1,22,Turkey,Portugal,1,1,78,62,0
+2025-08-30,1,23,Poland,Israel,2,2,61,41,1
+2025-08-30,1,24,Spain,Bosnia & Herzegovina,2,2,73,9,0
+2025-08-31,1,25,Georgia,Greece,1,1,29,32,0
+2025-08-31,1,26,Slovenia,Belgium,1,1,70,8,0
+2025-08-31,1,27,Israel,France,1,1,41,28,0
+2025-08-31,1,28,Cyprus,Spain,1,1,20,73,1
+2025-08-31,1,29,Bosnia & Herzegovina,Italy,1,1,9,42,0
+2025-08-31,1,30,Poland,Iceland,1,1,61,35,1
+2025-09-01,1,31,Sweden,Montenegro,2,2,74,53,0
+2025-09-01,1,32,Estonia,Turkey,2,2,26,78,0
+2025-09-01,1,33,Germany,Great Britain,2,2,30,31,0
+2025-09-01,1,34,Latvia,Portugal,2,2,48,62,1
+2025-09-01,1,35,Finland,Lithuania,2,2,27,50,1
+2025-09-01,1,36,Serbia,Czech Republic,2,2,68,21,0
+2025-09-02,1,37,Belgium,Israel,2,2,8,41,0
+2025-09-02,1,38,Greece,Bosnia & Herzegovina,2,2,32,9,0
+2025-09-02,1,39,Iceland,Slovenia,2,2,35,70,0
+2025-09-02,1,40,Cyprus,Georgia,2,2,20,29,1
+2025-09-02,1,41,Poland,France,2,2,61,28,1
+2025-09-02,1,42,Italy,Spain,2,2,42,73,0
+2025-09-03,1,43,Montenegro,Great Britain,2,2,53,31,0
+2025-09-03,1,44,Estonia,Portugal,2,2,26,62,0
+2025-09-03,1,45,Lithuania,Sweden,2,2,50,74,0
+2025-09-03,1,46,Latvia,Czech Republic,2,2,48,21,1
+2025-09-03,1,47,Finland,Germany,2,2,27,30,1
+2025-09-03,1,48,Turkey,Serbia,2,2,78,68,0
+2025-09-04,1,49,Bosnia & Herzegovina,Georgia,2,2,9,29,0
+2025-09-04,1,50,France,Iceland,2,2,28,35,0
+2025-09-04,1,51,Israel,Slovenia,2,2,41,70,0
+2025-09-04,1,52,Cyprus,Italy,2,2,20,42,1
+2025-09-04,1,53,Poland,Belgium,2,2,61,8,1
+2025-09-04,1,54,Spain,Greece,2,2,73,32,0
