@@ -3,7 +3,7 @@ box::use(
   R / common / get_model_results[generate_model_results]
 )
 
-end_date <- Sys.Date() - 1
+end_date <- Sys.Date()
 
 fit_football_model(
   sex = "male",

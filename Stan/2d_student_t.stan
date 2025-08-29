@@ -12,11 +12,13 @@ data {
   int<lower=0> K;                     // Number of teams
   int<lower=0> N;                     // Number of games
   int<lower=0> N_rounds;              // Number of rounds
+  int<lower=0> N_seasons;              // Number of seasons
   array[N] int<lower=1, upper=K> team1;    // Team 1 ID for each game (home)
   array[N] int<lower=1, upper=K> team2;    // Team 2 ID for each game (away)
   array[N] int<lower=0, upper=1> team1_home;  // Indicator whether team 1 is home
   array[N] int<lower=1, upper = N_rounds> round1;  // Round ID for each game
   array[N] int<lower=1, upper = N_rounds> round2;  // Round ID for each game
+  array[N] int<lower=1, upper = N_seasons> season;  // Season ID for each game
   matrix<lower = 0>[K, N_rounds] time_between_matches;  // Time difference between matches for each team and each round
   array[N] int<lower=0> goals1;       // Goals scored by   team 1 (home)
   array[N] int<lower=0> goals2;       // Goals scored by team 2 (away)
@@ -98,7 +100,10 @@ parameters {
   real mean_sigma_def;
 
   // Mean of log goals
-  real mean_goals;
+  real mean_goals0;
+  real delta_mean_goals;
+  real<lower = 0> sigma_mean_goals;
+  array[N_seasons - 1] real z_mean_goals;
 
 
   // Home advantage parameters
@@ -149,6 +154,12 @@ transformed parameters {
 
   vector<lower=0>[K] sigma_team = exp(mean_sigma_team + scale_sigma_team * z_sigma_team);
 
+  vector[N_seasons] mean_goals;
+  mean_goals[1] = mean_goals0;
+  for (i in 2:N_seasons) { 
+    mean_goals[i] = mean_goals[i - 1] + delta_mean_goals + sigma_mean_goals * z_mean_goals[i - 1];
+  }
+
 }
 
 /**
@@ -196,7 +207,11 @@ model {
   def_friendly ~ normal(0, 20);
 
   // Prior for mean goals
-  mean_goals ~ normal(80, 10);
+  mean_goals0 ~ normal(80, 10);
+  delta_mean_goals ~ normal(0, 10);
+  sigma_mean_goals ~ exponential(2);
+  z_mean_goals ~ std_normal();
+
 
   // Priors for scale, shape and correlation
   rho ~ uniform(-1, 1);
@@ -229,8 +244,8 @@ model {
     */
 
     // Expected goals
-    mu[1] = mean_goals + off[1] - def[2];
-    mu[2] = mean_goals + off[2] - def[1];
+    mu[1] = mean_goals[season[n]] + off[1] - def[2];
+    mu[2] = mean_goals[season[n]] + off[2] - def[1];
     
 
     // Create game-specific covariance matrix using team sigmas
@@ -296,8 +311,8 @@ generated quantities {
     off[2] = offense[N_rounds, team2_pred[n]];
     def[2] = defense[N_rounds, team2_pred[n]];
 
-    mu[1] = mean_goals + off[1] - def[2];
-    mu[2] = mean_goals + off[2] - def[1];
+    mu[1] = mean_goals[N_seasons] + off[1] - def[2];  
+    mu[2] = mean_goals[N_seasons] + off[2] - def[1];
     
     // Create game-specific covariance matrix using team sigmas
     Sigma[1,1] = square(sigma_team[team1_pred[n]]);

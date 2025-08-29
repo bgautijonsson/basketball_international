@@ -1,4 +1,6 @@
 season,division,date,home,away,home_goals,away_goals
+2025,1,2025-08-29,Turkey,Czech Republic,92,78
+2025,1,2025-08-29,Germany,Sweden,105,83
 2025,1,2025-08-28,Greece,Italy,75,66
 2025,1,2025-08-28,Slovenia,Poland,95,105
 2025,1,2025-08-28,Bosnia & Herzegovina,Cyprus,91,64
@@ -211,7 +213,6 @@ season,division,date,home,away,home_goals,away_goals
 2024,2,2024-06-28,Spain,Dominican Republic,84,74
 2024,2,2024-06-28,Poland,New Zealand,88,59
 2024,2,2024-06-28,Finland,Latvia,90,84
-2024,2,2024-06-27,Portugal,Norway,98,67
 2024,2,2024-06-27,Greece,Bahamas,102,75
 2024,2,2024-06-27,Turkey,Philippines,84,73
 2024,2,2024-06-26,Montenegro,Bahamas,93,80
@@ -229,7 +230,6 @@ season,division,date,home,away,home_goals,away_goals
 2024,2,2024-06-23,Lithuania,Slovenia,92,86
 2024,2,2024-06-23,Netherlands,Belgium,61,54
 2024,2,2024-06-23,Japan,Australia,95,95
-2024,2,2024-06-22,Dominican Republic,Norway,78,65
 2024,2,2024-06-22,Japan,Australia,89,90
 2024,2,2024-06-21,Greece,Poland,78,73
 2024,2,2024-06-14,Lithuania,Lebanon,95,66
@@ -438,10 +438,6 @@ season,division,date,home,away,home_goals,away_goals
 2023,2,2023-08-06,Chile,Argentina,68,70
 2023,2,2023-08-06,Belgium,Czech Republic,75,73
 2023,2,2023-08-06,North Macedonia,Poland,52,84
-2025,1,2023-08-05,Kosovo,Denmark,63,88
-2025,1,2023-08-05,Albania,Slovakia,64,89
-2025,1,2023-08-05,Ireland,Luxembourg,79,76
-2025,1,2023-08-05,Norway,Austria,84,74
 2023,2,2023-08-05,Italy,China,79,61
 2023,2,2023-08-05,Germany,Sweden,87,68
 2023,2,2023-08-05,Jordan,Angola,70,56
@@ -1064,18 +1060,14 @@ season,division,date,home,away,home_goals,away_goals
 2023,3,2021-11-25,Slovakia,Belgium,57,83
 2023,3,2021-08-18,Montenegro,Denmark,79,67
 2023,3,2021-08-18,North Macedonia,Slovakia,72,88
-2023,3,2021-08-18,Sweden,Luxembourg,94,58
 2023,3,2021-08-17,Denmark,Iceland,73,89
-2023,3,2021-08-17,Luxembourg,Portugal,74,80
 2023,3,2021-08-17,Slovakia,Switzerland,60,65
 2023,3,2021-08-16,Iceland,Montenegro,80,82
 2023,3,2021-08-16,Portugal,Sweden,60,79
 2023,3,2021-08-16,Switzerland,North Macedonia,61,67
 2023,3,2021-08-14,Denmark,Montenegro,68,79
-2023,3,2021-08-14,Luxembourg,Sweden,76,129
 2023,3,2021-08-14,Slovakia,North Macedonia,47,69
 2023,3,2021-08-13,Iceland,Denmark,91,70
-2023,3,2021-08-13,Portugal,Luxembourg,83,74
 2023,3,2021-08-13,Switzerland,Slovakia,56,64
 2023,3,2021-08-12,Montenegro,Iceland,83,69
 2023,3,2021-08-12,North Macedonia,Switzerland,62,67
@@ -1173,32 +1165,15 @@ season,division,date,home,away,home_goals,away_goals
 2022,1,2021-02-20,Finland,Serbia,58,80
 2022,1,2021-02-20,Hungary,Slovenia,77,75
 2022,1,2021-02-20,Georgia,Switzerland,96,88
-2023,3,2021-02-20,Kosovo,Slovakia,73,77
-2023,3,2021-02-20,Luxembourg,Iceland,84,86
 2023,3,2021-02-20,Cyprus,Portugal,52,84
-2023,3,2021-02-18,Kosovo,Luxembourg,89,99
-2023,3,2021-02-18,Cyprus,Albania,88,66
 2023,3,2021-02-18,Slovakia,Iceland,79,94
-2023,3,2020-11-28,Albania,Portugal,70,88
-2023,3,2020-11-28,Luxembourg,Slovakia,77,73
-2023,3,2020-11-28,Iceland,Kosovo,86,62
 2023,3,2020-11-26,Portugal,Cyprus,74,56
-2023,3,2020-11-26,Slovakia,Kosovo,91,67
-2023,3,2020-11-26,Iceland,Luxembourg,90,76
-2022,1,2020-08-21,Albania,Denmark,57,68
-2022,1,2020-08-21,Luxembourg,Great Britain,65,93
 2022,1,2020-08-21,Switzerland,Iceland,109,85
-2022,1,2020-08-17,Great Britain,Kosovo,101,79
 2022,1,2020-08-17,Iceland,Portugal,96,68
-2022,1,2020-08-14,Kosovo,Luxembourg,109,88
 2022,1,2020-08-14,Portugal,Switzerland,84,68
 2022,1,2020-08-14,Cyprus,Slovakia,79,83
-2022,1,2020-08-10,Great Britain,Luxembourg,71,54
-2022,1,2020-08-10,Denmark,Albania,95,73
 2022,1,2020-08-10,Iceland,Switzerland,83,82
-2022,1,2020-08-07,Kosovo,Great Britain,63,71
 2022,1,2020-08-07,Portugal,Iceland,80,79
-2022,1,2020-08-03,Luxembourg,Kosovo,88,80
 2022,1,2020-08-03,Switzerland,Portugal,77,72
 2022,1,2020-08-03,Slovakia,Cyprus,67,60
 2020,2,2020-07-30,Finland,Estonia,75,67
@@ -1209,19 +1184,13 @@ season,division,date,home,away,home_goals,away_goals
 2022,1,2020-02-24,Austria,Great Britain,75,78
 2022,1,2020-02-24,Belgium,Iceland,90,62
 2023,3,2020-02-23,Iceland,Slovakia,83,74
-2023,3,2020-02-23,Luxembourg,Kosovo,80,84
-2023,3,2020-02-23,Albania,Cyprus,71,64
 2022,1,2020-02-21,Iceland,Portugal,91,67
 2022,1,2020-02-21,Great Britain,Cyprus,84,47
 2022,1,2020-02-21,Sweden,Denmark,79,74
-2023,3,2020-02-20,Portugal,Albania,70,62
-2023,3,2020-02-20,Kosovo,Iceland,80,78
-2023,3,2020-02-20,Slovakia,Luxembourg,73,65
 2020,2,2020-02-10,Jordan,Syria,75,67
 2020,2,2020-02-10,Lebanon,Bahrain,73,64
 2022,1,2019-12-03,Cyprus,Great Britain,61,75
 2022,1,2019-12-02,Portugal,Belgium,60,70
-2022,1,2019-12-02,North Macedonia,Kosovo,78,68
 2022,1,2019-12-02,Cyprus,Austria,71,81
 2022,1,2019-11-29,Iceland,Belgium,66,79
 2022,1,2019-11-29,Great Britain,Austria,82,96
@@ -1232,7 +1201,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2019-09-14,Serbia,Czech Republic,90,81
 2019,3,2019-09-14,USA,Poland,87,74
 2022,1,2019-09-13,Belgium,Portugal,66,65
-2022,1,2019-09-13,Kosovo,North Macedonia,73,76
 2022,1,2019-09-13,Austria,Cyprus,72,69
 2019,3,2019-09-13,Argentina,France,80,66
 2019,3,2019-09-13,Spain,Australia,95,88
@@ -1428,14 +1396,8 @@ season,division,date,home,away,home_goals,away_goals
 2019,2,2019-07-23,Latvia,Croatia,50,75
 2019,2,2019-07-23,China,Tunisia,74,50
 2019,2,2019-07-22,Tunisia,Latvia,50,45
-2019,2,2019-07-21,Slovakia,Kosovo,82,65
-2019,2,2019-07-13,Slovakia,Ireland,97,65
-2019,2,2019-07-12,Slovakia,Ireland,105,66
 2019,2,2019-07-08,Jordan,Egypt,69,81
-2022,1,2019-07-01,Albania,Denmark,78,86
-2022,1,2019-07-01,Cyprus,Luxembourg,76,89
 2022,1,2019-07-01,Slovakia,Switzerland,88,83
-2022,1,2019-06-28,Luxembourg,Portugal,58,80
 2022,1,2019-06-28,Switzerland,North Macedonia,85,79
 2019,2,2019-06-28,Finland,Canada,93,81
 2019,3,2019-02-26,Mexico,Panama,78,61
@@ -1468,9 +1430,7 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2019-02-23,Mexico,Uruguay,88,77
 2019,3,2019-02-23,Puerto Rico,Argentina,87,86
 2019,3,2019-02-23,USA,Panama,111,80
-2022,1,2019-02-22,Luxembourg,Cyprus,53,67
 2022,1,2019-02-22,Switzerland,Slovakia,83,80
-2022,1,2019-02-22,Denmark,Albania,82,69
 2019,3,2019-02-22,Nigeria,Ivory Coast,46,72
 2019,3,2019-02-22,Lebanon,New Zealand,67,69
 2019,3,2019-02-22,Italy,Hungary,75,41
@@ -1543,7 +1503,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2018-11-29,South Korea,Lebanon,84,71
 2019,3,2018-11-29,New Zealand,Jordan,95,69
 2022,1,2018-11-26,North Macedonia,Switzerland,83,68
-2022,1,2018-11-26,Portugal,Luxembourg,91,85
 2022,1,2018-11-23,Cyprus,Portugal,69,67
 2022,1,2018-11-23,Slovakia,North Macedonia,66,74
 2019,3,2018-09-18,Panama,USA,48,78
@@ -1634,7 +1593,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2018-07-01,Uruguay,Argentina,58,102
 2019,3,2018-07-01,Tunisia,Cameroon,56,53
 2019,3,2018-07-01,Lebanon,Syria,87,50
-2019,3,2018-07-01,Kosovo,Poland,70,103
 2019,3,2018-07-01,Hungary,Lithuania,50,73
 2019,3,2018-07-01,Slovenia,Montenegro,74,87
 2019,3,2018-07-01,Central African Republic,Ivory Coast,69,60
@@ -1668,7 +1626,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2018-06-29,Argentina,Panama,87,62
 2019,3,2018-06-28,Italy,Croatia,72,78
 2019,3,2018-06-28,Lebanon,Jordan,77,76
-2019,3,2018-06-28,Kosovo,Hungary,65,81
 2019,3,2018-06-28,Slovenia,Spain,72,83
 2019,3,2018-06-28,Poland,Lithuania,61,79
 2019,3,2018-06-28,Turkey,Ukraine,80,66
@@ -1678,9 +1635,7 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2018-06-28,China,South Korea,74,82
 2018,2,2018-06-25,Latvia,Russia,71,79
 2018,2,2018-06-25,Finland,Estonia,95,76
-2018,2,2018-06-23,Ireland,Luxembourg,93,97
 2018,2,2018-06-22,Croatia,Bosnia & Herzegovina,88,75
-2018,2,2018-06-22,Ireland,Luxembourg,82,67
 2018,2,2018-06-22,Czech Republic,Georgia,71,57
 2018,2,2018-06-22,Bulgaria,Tunisia,84,87
 2018,2,2018-06-22,Israel,Ukraine,83,85
@@ -1699,7 +1654,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2018-02-26,Hungary,Poland,64,57
 2019,3,2018-02-26,Spain,Montenegro,79,67
 2019,3,2018-02-26,Latvia,Turkey,79,70
-2019,3,2018-02-26,Lithuania,Kosovo,106,50
 2019,3,2018-02-26,Jordan,Syria,87,62
 2019,3,2018-02-26,Ukraine,Sweden,77,66
 2019,3,2018-02-26,India,Lebanon,50,90
@@ -1728,7 +1682,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2018-02-23,Bosnia & Herzegovina,Belgium,72,70
 2019,3,2018-02-23,Montenegro,Slovenia,63,75
 2019,3,2018-02-23,Germany,Serbia,79,74
-2019,3,2018-02-23,Poland,Kosovo,90,62
 2019,3,2018-02-23,Sweden,Turkey,59,58
 2019,3,2018-02-23,Lithuania,Hungary,80,75
 2019,3,2018-02-23,Latvia,Ukraine,68,82
@@ -1765,7 +1718,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2017-11-26,Panama,Argentina,59,68
 2019,3,2017-11-26,Cameroon,Tunisia,66,67
 2019,3,2017-11-26,Spain,Slovenia,92,84
-2019,3,2017-11-26,Hungary,Kosovo,84,76
 2019,3,2017-11-26,Lithuania,Poland,75,55
 2019,3,2017-11-26,D.R. Congo,Angola,64,73
 2019,3,2017-11-26,Jordan,Lebanon,87,83
@@ -1785,7 +1737,6 @@ season,division,date,home,away,home_goals,away_goals
 2019,3,2017-11-24,Netherlands,Croatia,68,61
 2019,3,2017-11-24,Serbia,Austria,85,64
 2019,3,2017-11-24,Germany,Georgia,79,70
-2019,3,2017-11-24,Kosovo,Lithuania,61,99
 2019,3,2017-11-24,Sweden,Ukraine,76,84
 2019,3,2017-11-24,Bosnia & Herzegovina,Russia,81,76
 2019,3,2017-11-24,Poland,Hungary,70,60
@@ -1908,8 +1859,6 @@ season,division,date,home,away,home_goals,away_goals
 2017,2,2017-08-19,Latvia,Lithuania,87,77
 2017,2,2017-08-19,Belgium,Italy,80,60
 2017,2,2017-08-19,Hungary,Iceland,81,66
-2019,3,2017-08-19,Albania,Netherlands,37,111
-2019,3,2017-08-19,Kosovo,Estonia,75,69
 2019,3,2017-08-19,Sweden,Slovakia,86,82
 2017,2,2017-08-18,Spain,Senegal,80,69
 2017,2,2017-08-18,France,Belgium,85,60
@@ -1937,10 +1886,8 @@ season,division,date,home,away,home_goals,away_goals
 2017,2,2017-08-12,Croatia,Slovenia,85,81
 2017,2,2017-08-12,Hungary,Iceland,56,60
 2017,2,2017-08-12,Germany,Russia,60,89
-2019,3,2017-08-12,North Macedonia,Kosovo,87,74
 2019,3,2017-08-12,Bosnia & Herzegovina,Sweden,72,88
 2019,3,2017-08-12,Bulgaria,Portugal,91,65
-2019,3,2017-08-12,Austria,Albania,97,63
 2017,2,2017-08-11,Montenegro,Greece,81,83
 2017,2,2017-08-11,Italy,Finland,75,70
 2017,2,2017-08-11,Iceland,Germany,66,90
@@ -1950,9 +1897,7 @@ season,division,date,home,away,home_goals,away_goals
 2017,2,2017-08-10,France,Lithuania,98,77
 2017,2,2017-08-09,Spain,Belgium,71,89
 2017,2,2017-08-09,Croatia,Lithuania,82,80
-2019,3,2017-08-09,Netherlands,Albania,91,77
 2019,3,2017-08-09,Slovakia,Sweden,68,59
-2019,3,2017-08-09,Estonia,Kosovo,76,50
 2017,2,2017-08-08,Spain,Tunisia,71,45
 2017,2,2017-08-08,France,Croatia,87,92
 2017,2,2017-08-08,Greece,Great Britain,92,64
@@ -1973,8 +1918,6 @@ season,division,date,home,away,home_goals,away_goals
 2017,2,2017-08-04,Lithuania,Poland,59,58
 2017,2,2017-08-04,Russia,Finland,91,75
 2017,2,2017-08-04,Georgia,Latvia,73,69
-2019,3,2017-08-02,Albania,Austria,51,79
-2019,3,2017-08-02,Kosovo,North Macedonia,72,68
 2019,3,2017-08-02,Portugal,Bulgaria,71,82
 2019,3,2017-08-02,Sweden,Bosnia & Herzegovina,81,73
 2017,2,2017-07-31,Angola,New Zealand,64,72
@@ -2004,17 +1947,12 @@ season,division,date,home,away,home_goals,away_goals
 2017,2,2017-07-21,Bosnia & Herzegovina,Portugal,63,58
 2017,2,2017-07-20,North Macedonia,Portugal,52,47
 2017,2,2017-07-20,Bosnia & Herzegovina,Netherlands,102,96
-2017,2,2017-07-19,Slovakia,Kosovo,75,73
-2017,2,2017-07-18,Slovakia,Kosovo,61,69
 2017,2,2017-07-14,Portugal,Estonia,60,74
 2017,2,2017-07-12,Bulgaria,Austria,80,66
 2017,2,2017-06-18,China,Iran,65,55
 2017,2,2017-06-16,China,Iran,72,67
 2017,2,2017-06-13,China,Iran,60,63
 2017,1,2016-09-17,Montenegro,Georgia,84,90
-2017,1,2016-09-17,Kosovo,Bulgaria,62,67
-2017,1,2016-09-17,Luxembourg,Great Britain,82,75
-2017,1,2016-09-17,Albania,Slovakia,72,65
 2017,1,2016-09-17,Denmark,Austria,86,72
 2017,1,2016-09-17,Estonia,Poland,63,94
 2017,1,2016-09-17,Netherlands,Germany,51,82
@@ -2024,24 +1962,18 @@ season,division,date,home,away,home_goals,away_goals
 2017,1,2016-09-17,Ukraine,Slovenia,69,80
 2017,1,2016-09-17,Russia,Sweden,63,59
 2017,1,2016-09-14,Iceland,Cyprus,84,62
-2017,1,2016-09-14,Montenegro,Albania,94,56
 2017,1,2016-09-14,Belgium,Switzerland,87,49
 2017,1,2016-09-14,Netherlands,Denmark,98,88
 2017,1,2016-09-14,Slovenia,Bulgaria,85,63
 2017,1,2016-09-14,Sweden,Bosnia & Herzegovina,76,78
 2017,1,2016-09-14,Germany,Austria,78,58
-2017,1,2016-09-14,Luxembourg,Hungary,65,68
 2017,1,2016-09-14,North Macedonia,Great Britain,62,89
 2017,1,2016-09-14,Estonia,Portugal,82,63
-2017,1,2016-09-14,Ukraine,Kosovo,100,61
 2017,1,2016-09-14,Georgia,Slovakia,96,68
 2017,1,2016-09-10,Austria,Netherlands,61,75
 2017,1,2016-09-10,Bosnia & Herzegovina,Russia,67,78
-2017,1,2016-09-10,Kosovo,Slovenia,81,91
 2017,1,2016-09-10,Great Britain,Hungary,80,88
-2017,1,2016-09-10,Luxembourg,North Macedonia,74,82
 2017,1,2016-09-10,Portugal,Poland,74,81
-2017,1,2016-09-10,Albania,Georgia,64,84
 2017,1,2016-09-10,Denmark,Germany,106,102
 2017,1,2016-09-10,Slovakia,Montenegro,62,99
 2017,1,2016-09-10,Switzerland,Iceland,83,80
@@ -2049,37 +1981,28 @@ season,division,date,home,away,home_goals,away_goals
 2017,1,2016-09-10,Cyprus,Belgium,55,72
 2017,1,2016-09-07,North Macedonia,Hungary,66,76
 2017,1,2016-09-07,Belgium,Iceland,80,65
-2017,1,2016-09-07,Great Britain,Luxembourg,95,72
 2017,1,2016-09-07,Poland,Estonia,78,64
 2017,1,2016-09-07,Slovenia,Ukraine,84,77
 2017,1,2016-09-07,Sweden,Russia,73,85
 2017,1,2016-09-07,Germany,Netherlands,71,75
 2017,1,2016-09-07,Switzerland,Cyprus,76,80
 2017,1,2016-09-07,Austria,Denmark,86,66
-2017,1,2016-09-07,Slovakia,Albania,69,60
-2017,1,2016-09-07,Bulgaria,Kosovo,105,84
 2017,1,2016-09-07,Georgia,Montenegro,74,76
 2017,1,2016-09-03,Austria,Germany,59,61
 2017,1,2016-09-03,Bosnia & Herzegovina,Sweden,74,71
-2017,1,2016-09-03,Kosovo,Ukraine,63,70
 2017,1,2016-09-03,Great Britain,North Macedonia,96,79
 2017,1,2016-09-03,Portugal,Estonia,68,76
-2017,1,2016-09-03,Albania,Montenegro,73,113
 2017,1,2016-09-03,Denmark,Netherlands,72,90
-2017,1,2016-09-03,Hungary,Luxembourg,89,64
 2017,1,2016-09-03,Slovakia,Georgia,63,94
 2017,1,2016-09-03,Switzerland,Belgium,72,87
 2017,1,2016-09-03,Bulgaria,Slovenia,78,83
 2017,1,2016-09-03,Cyprus,Iceland,64,75
 2017,1,2016-08-31,Iceland,Switzerland,88,72
 2017,1,2016-08-31,Montenegro,Slovakia,97,65
-2017,1,2016-08-31,North Macedonia,Luxembourg,89,75
 2017,1,2016-08-31,Netherlands,Austria,72,75
 2017,1,2016-08-31,Poland,Portugal,83,57
-2017,1,2016-08-31,Slovenia,Kosovo,113,68
 2017,1,2016-08-31,Germany,Denmark,101,74
 2017,1,2016-08-31,Belgium,Cyprus,65,46
 2017,1,2016-08-31,Hungary,Great Britain,96,77
 2017,1,2016-08-31,Ukraine,Bulgaria,79,69
-2017,1,2016-08-31,Georgia,Albania,86,47
 2017,1,2016-08-31,Russia,Bosnia & Herzegovina,83,54

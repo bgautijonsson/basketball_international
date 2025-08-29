@@ -4,10 +4,12 @@ library(purrr)
 library(glue)
 library(scales)
 library(ggtext)
+library(metill)
+theme_set(theme_metill())
 
 hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
 d <- read_csv(
-  here("results", "male", today() - 1, "d.csv")
+  here("results", "male", today(), "d.csv")
 ) |> 
   select(-division) |> 
   filter(
@@ -236,6 +238,50 @@ ggsave(
   height = 1.2 * 8,
   scale = 1.1
 )
+
+
+posterior_goals |> 
+  mutate(
+    diff_pred = home_goals - away_goals
+  ) |> 
+  select(
+    iteration, date, fit_date, home, away, diff_pred
+  ) |> 
+  inner_join(
+    d |> 
+      mutate(
+        diff_obs = home_goals - away_goals
+      ) |> 
+      select(
+        game_nr, date, home, away, diff_obs
+      ),
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  summarise(
+    p = mean(diff_obs < diff_pred),
+    .by = c(game_nr, date, fit_date, home, away)
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(game_nr)
+  ) |> 
+  arrange(p) |> 
+  mutate(
+    o = row_number() / (n() + 1)
+  ) |> 
+  ggplot(aes(o, p)) +
+  geom_abline(
+    intercept = 0,
+    slope = 1
+  ) +
+  geom_point()
 
 
 #### Total Goals ####

@@ -65,7 +65,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     arrange(date) |>
     filter(
       date <= end_date
-    ) |> 
+    ) |>
     mutate(
       game_nr = row_number()
     ) |>
@@ -379,7 +379,8 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     N = nrow(model_d),
     N_pred = nrow(pred_d),
     N_rounds = n_rounds,
-    season_first = model_d$season_first,
+    N_seasons = length(unique(model_d$season)),
+    season = as.numeric(as.factor(model_d$season)),
     team1 = model_d$home_nr,
     team2 = model_d$away_nr,
     team1_home = model_d$team1_home,
