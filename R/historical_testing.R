@@ -162,11 +162,12 @@ plot_dat |>
     data = tibble(x = 1),
     inherit.aes = FALSE,
     x = -50,
-    y = 0.1,
+    y = 0.3,
     label.colour = NA,
     fill = NA,
     label = "&larr; Heimalið vinnur",
     hjust = 0,
+    vjust = 0,
     size = 4.5,
     colour = "grey40"
   ) +
@@ -174,11 +175,12 @@ plot_dat |>
     data = tibble(x = 1),
     inherit.aes = FALSE,
     x = 50,
-    y = 0.1,
+    y = 0.3,
     label.colour = NA,
     fill = NA,
     label = "Gestir vinna &rarr;",
     hjust = 1,
+    vjust = 0,
     size = 4.5,
     colour = "grey40"
   ) +
