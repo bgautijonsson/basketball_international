@@ -126,7 +126,7 @@ plot_dat <- posterior_goals |>
     .by = c(home, away)
   ) 
 
-plot_dat |> 
+p1 <- plot_dat |> 
   ggplot(aes(median, max(game_nr) - game_nr + 1)) +
   geom_vline(
     xintercept = 0,
@@ -158,57 +158,32 @@ plot_dat |>
     ),
     linewidth = 3
   ) +
-  geom_richtext(
-    data = tibble(x = 1),
-    inherit.aes = FALSE,
-    x = -50,
-    y = 0.3,
-    label.colour = NA,
-    fill = NA,
-    label = "&larr; Heimalið vinnur",
-    hjust = 0,
-    vjust = 0,
-    size = 4.5,
-    colour = "grey40"
-  ) +
-  geom_richtext(
-    data = tibble(x = 1),
-    inherit.aes = FALSE,
-    x = 50,
-    y = 0.3,
-    label.colour = NA,
-    fill = NA,
-    label = "Gestir vinna &rarr;",
-    hjust = 1,
-    vjust = 0,
-    size = 4.5,
-    colour = "grey40"
-  ) +
   scale_alpha_continuous(
     range = c(0, 0.3),
     guide = guide_none()
   ) +
   scale_x_continuous(
     guide = guide_axis(cap = "both"),
-    labels = \(x) abs(x)
+    labels = \(x) abs(x),
+    breaks = seq(-50, 50, by = 25)
   ) +
   scale_y_continuous(
     guide = guide_axis(cap = "both"),
     breaks = seq(length(unique(plot_dat$game_nr)), 1),
     labels = \(x) {
       plot_dat |>
-        distinct(game_nr, home_label, away_label) |>
+        distinct(game_nr, home, away) |>
         arrange(game_nr) |> 
-        pull(home_label)
+        pull(home)
     },
     sec.axis = sec_axis(
       transform = \(x) x,
       breaks = seq(length(unique(plot_dat$game_nr)), 1),
       labels = \(x) {
         plot_dat |>
-          distinct(game_nr, home_label, away_label) |>
+          distinct(game_nr, home, away) |>
           arrange(game_nr) |> 
-          pull(away_label)
+          pull(away)
       },
       guide = guide_axis(cap = "both")
     )
@@ -234,12 +209,15 @@ plot_dat |>
     )
   )
 
+p1
+
 ggsave(
   filename = here("results", "male", "accuracy.png"),
   width = 8,
   height = 1.2 * 8,
   scale = 1.1
 )
+
 
 
 posterior_goals |> 
@@ -283,7 +261,22 @@ posterior_goals |>
     intercept = 0,
     slope = 1
   ) +
-  geom_point()
+  geom_point() +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  labs(
+    title = "Kvörðun á eftirádreifingu fyrir markamismun leikja"
+  )
 
 
 #### Total Goals ####
@@ -338,7 +331,7 @@ plot_dat <- posterior_goals |>
     .by = c(home, away)
   ) 
 
-plot_dat |> 
+p2 <- plot_dat |> 
   ggplot(aes(median, max(game_nr) - game_nr + 1)) +
   geom_hline(
     yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
@@ -370,7 +363,7 @@ plot_dat |>
   ) +
   scale_x_continuous(
     guide = guide_axis(cap = "both"),
-    breaks = breaks_extended(10)
+    breaks = seq(110, 210, by = 20)
   ) +
   scale_y_continuous(
     guide = guide_axis(cap = "both"),
@@ -411,10 +404,364 @@ plot_dat |>
     )
   )
 
+p2
 
 ggsave(
   filename = here("results", "male", "accuracy_totalgoals.png"),
   width = 8,
   height = 1.2 * 8,
   scale = 1.15
+)
+
+
+#### Home Goals ####
+
+
+plot_dat <- posterior_goals |>
+  semi_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  mutate(
+    total_goals = home_goals
+  ) |>
+  reframe(
+    median = median(total_goals),
+    coverage = c(
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.975
+    ),
+    lower = quantile(total_goals, 0.5 - coverage / 2),
+    upper = quantile(total_goals, 0.5 + coverage / 2),
+    .by = c(date, home, away, fit_date)
+  ) |>
+  inner_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(home, away)
+  ) 
+
+p3 <- plot_dat |> 
+  ggplot(aes(median, max(game_nr) - game_nr + 1)) +
+  geom_hline(
+    yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
+    linewidth = 8,
+    alpha = 0.1
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5,
+    col = "red",
+    aes(x = home_goals)
+  ) +
+  geom_segment(
+    aes(
+      x = lower,
+      xend = upper,
+      yend = max(game_nr) - game_nr + 1,
+      alpha = -coverage
+    ),
+    linewidth = 3
+  ) +
+  scale_alpha_continuous(
+    range = c(0, 0.3),
+    guide = guide_none()
+  ) +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(40, 120, by = 20)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(length(unique(plot_dat$game_nr)), 1),
+    labels = \(x) {
+      plot_dat |>
+        distinct(game_nr, home, away) |>
+        arrange(game_nr) |> 
+        pull(home)
+    },
+    sec.axis = sec_axis(
+      transform = \(x) x,
+      breaks = seq(length(unique(plot_dat$game_nr)), 1),
+      labels = \(x) {
+        plot_dat |>
+          distinct(game_nr, home, away) |>
+          arrange(game_nr) |> 
+          pull(away)
+      },
+      guide = guide_axis(cap = "both")
+    )
+  ) +
+  coord_cartesian(
+    ylim = c(1, max(plot_dat$game_nr)),
+    clip = "off"
+  ) +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(5, 5, 5, 5),
+    axis.text.y.left = element_text(face = "bold")
+  ) +
+  labs(
+    x = "Stigafjöldi",
+    y = NULL,
+    colour = NULL,
+    title = "Hversu vel hefur gengið að spá stigafjölda heimaliðs?",
+    subtitle = str_c(
+      "Raunverulegur fjöldi stiga heimaliða sýnd með rauðu"
+    )
+  )
+
+p3
+
+
+ggsave(
+  filename = here("results", "male", "accuracy_home.png"),
+  width = 8,
+  height = 1.2 * 8,
+  scale = 1.15
+)
+
+
+#### Away Goals ####
+
+
+plot_dat <- posterior_goals |>
+  semi_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  mutate(
+    total_goals = away_goals
+  ) |>
+  reframe(
+    median = median(total_goals),
+    coverage = c(
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.975
+    ),
+    lower = quantile(total_goals, 0.5 - coverage / 2),
+    upper = quantile(total_goals, 0.5 + coverage / 2),
+    .by = c(date, home, away, fit_date)
+  ) |>
+  inner_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(home, away)
+  ) 
+
+p4 <- plot_dat |> 
+  ggplot(aes(median, max(game_nr) - game_nr + 1)) +
+  geom_hline(
+    yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
+    linewidth = 8,
+    alpha = 0.1
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5,
+    col = "red",
+    aes(x = away_goals)
+  ) +
+  geom_segment(
+    aes(
+      x = lower,
+      xend = upper,
+      yend = max(game_nr) - game_nr + 1,
+      alpha = -coverage
+    ),
+    linewidth = 3
+  ) +
+  scale_alpha_continuous(
+    range = c(0, 0.3),
+    guide = guide_none()
+  ) +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(40, 120, by = 20)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(length(unique(plot_dat$game_nr)), 1),
+    labels = \(x) {
+      plot_dat |>
+        distinct(game_nr, home, away) |>
+        arrange(game_nr) |> 
+        pull(home)
+    },
+    sec.axis = sec_axis(
+      transform = \(x) x,
+      breaks = seq(length(unique(plot_dat$game_nr)), 1),
+      labels = \(x) {
+        plot_dat |>
+          distinct(game_nr, home, away) |>
+          arrange(game_nr) |> 
+          pull(away)
+      },
+      guide = guide_axis(cap = "both")
+    )
+  ) +
+  coord_cartesian(
+    ylim = c(1, max(plot_dat$game_nr)),
+    clip = "off"
+  ) +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(5, 5, 5, 5),
+    axis.text.y.right = element_text(face = "bold")
+  ) +
+  labs(
+    x = "Stigafjöldi",
+    y = NULL,
+    colour = NULL,
+    title = "Hversu vel hefur gengið að spá stigafjölda gestaliðs?",
+    subtitle = str_c(
+      "Raunverulegur fjöldi stiga gestaliða sýnd með rauðu"
+    )
+  )
+
+
+p4
+
+ggsave(
+  filename = here("results", "male", "accuracy_away.png"),
+  width = 8,
+  height = 1.2 * 8,
+  scale = 1.15
+)
+
+
+library(patchwork)
+
+
+
+(
+  p3 + 
+    theme(
+      axis.text.y.right = element_blank(),
+      axis.line.y.right = element_blank(),
+      axis.ticks.y.right = element_blank()
+    ) +
+    labs(
+      title = NULL,
+      subtitle = "Stig heimaliðs",
+      x = NULL
+    )
+) +
+  (
+    p1 + 
+      theme(
+        axis.text.y.right = element_blank(),
+        axis.line.y.right = element_blank(),
+        axis.ticks.y.right = element_blank(),
+        axis.text.y.left = element_blank(),
+        axis.line.y.left = element_blank(),
+        axis.ticks.y.left = element_blank()
+      ) +
+      labs(
+        title = NULL,
+        subtitle = "Stigamismunur",
+        x = NULL
+      )
+  ) +
+  (
+    p2 + 
+      theme(
+        axis.text.y.right = element_blank(),
+        axis.line.y.right = element_blank(),
+        axis.ticks.y.right = element_blank(),
+        axis.text.y.left = element_blank(),
+        axis.line.y.left = element_blank(),
+        axis.ticks.y.left = element_blank()
+      ) +
+      labs(
+        title = NULL,
+        subtitle = "Heildarfjöldi stiga",
+        x = NULL
+      )
+  ) +
+  (
+    p4 +
+      theme(
+        axis.text.y.left = element_blank(),
+        axis.line.y.left = element_blank(),
+        axis.ticks.y.left = element_blank()
+      ) +
+      labs(
+        title = NULL,
+        subtitle = "Stig gestaliðs",
+        x = NULL
+      )
+  ) +
+  plot_layout(
+    nrow = 1
+  ) +
+  plot_annotation(
+    title = "Hversu vel hefur gengið að spá stigafjölda keppandi liða?",
+    subtitle = "Raunverulegur fjöldi stiga liðanna sýndur með rauðu"
+  )
+
+
+ggsave(
+  filename = here("results", "male", "accuracy_home_away.png"),
+  width = 8,
+  height = 0.6 * 8,
+  scale = 1.4
 )
