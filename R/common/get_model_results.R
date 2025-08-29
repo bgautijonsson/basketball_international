@@ -616,7 +616,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         "figures",
         "group_table.png"
       ),
-      expand = c(1, 5, 1, -8)
+      expand = c(1, 5, 1, -2)
     )
 
   #### Posterior Results ####
@@ -872,7 +872,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         "figures",
         "styrkur_table.png"
       ),
-      expand = c(1, 5, 1, -8)
+      expand = c(1, 5, 1, -2)
     )
 
   #### Home Advantages ####
