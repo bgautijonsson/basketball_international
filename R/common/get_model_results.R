@@ -101,7 +101,7 @@ Sys.setlocale("LC_ALL", "is_IS.UTF-8")
 #' @param from_season Integer, starting season for analysis (default: 2021)
 #'
 #' @export
-generate_model_results <- function(sex = "male") {
+generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
   sex <- "male"
   # Validate input
   if (!sex %in% c("male", "female")) {
@@ -109,13 +109,13 @@ generate_model_results <- function(sex = "male") {
   }
 
   #### Data Prep ####
-  results <- read_rds(here("results", sex, "fit.rds"))
+  results <- read_rds(here("results", sex, end_date, "fit.rds"))
 
-  d <- read_csv(here("results", sex, "d.csv"))
-  teams <- read_csv(here("results", sex, "teams.csv"))
-  next_games <- read_csv(here("results", sex, "next_games.csv"))
-  top_teams <- read_csv(here("results", sex, "top_teams.csv"))
-  pred_d <- read_csv(here("results", sex, "pred_d.csv"))
+  d <- read_csv(here("results", sex, end_date, "d.csv"))
+  teams <- read_csv(here("results", sex, end_date, "teams.csv"))
+  next_games <- read_csv(here("results", sex, end_date, "next_games.csv"))
+  top_teams <- read_csv(here("results", sex, end_date, "top_teams.csv"))
+  pred_d <- read_csv(here("results", sex, end_date, "pred_d.csv"))
 
   #### Next-Round Predictions ####
 
@@ -142,9 +142,12 @@ generate_model_results <- function(sex = "male") {
       by = "game_nr"
     ) |>
     filter(
-      date <= today() + 7,
-      date >= today()
+      date <= end_date + 7,
+      date > end_date
     ) |>
+    mutate(
+      game_nr = game_nr - min(game_nr) + 1
+    ) |> 
     select(
       iteration = .draw,
       game_nr,
@@ -157,7 +160,7 @@ generate_model_results <- function(sex = "male") {
     )
 
   posterior_goals |>
-    write_csv(here("results", "male", "posterior_goals.csv"))
+    write_csv(here("results", "male", end_date, "posterior_goals.csv"))
 
   plot_dat <- posterior_goals |>
     mutate(
@@ -187,7 +190,7 @@ generate_model_results <- function(sex = "male") {
       .by = c(game_nr, date, home, away)
     ) |>
     filter(
-      date <= today() + 1
+      date <= end_date + 2
     ) |>
     mutate(
       home_win = percent(home_win, accuracy = 1),
@@ -300,7 +303,13 @@ generate_model_results <- function(sex = "male") {
     )
 
   ggsave(
-    filename = here("results", sex, "figures", "next_round_predictions.png"),
+    filename = here(
+      "results",
+      sex,
+      end_date,
+      "figures",
+      "next_round_predictions.png"
+    ),
     width = 8,
     height = 0.8 * 8,
     scale = 1.2
@@ -376,7 +385,7 @@ generate_model_results <- function(sex = "male") {
       by = "game_nr"
     ) |>
     filter(
-      date >= today()
+      date >= end_date
     ) |>
     select(
       iteration = .draw,
@@ -602,7 +611,13 @@ generate_model_results <- function(sex = "male") {
       table.background.color = "#fdfcfc"
     ) |>
     gtsave(
-      filename = here("results", "male", "figures", "group_table.png"),
+      filename = here(
+        "results",
+        "male",
+        end_date,
+        "figures",
+        "group_table.png"
+      ),
       expand = 15
     )
 
@@ -778,7 +793,7 @@ generate_model_results <- function(sex = "male") {
     )
 
   ggsave(
-    filename = here("results", sex, "figures", "styrkur.png"),
+    filename = here("results", sex, end_date, "figures", "styrkur.png"),
     width = 8,
     height = 0.7 * 8,
     scale = 1.1
@@ -852,7 +867,13 @@ generate_model_results <- function(sex = "male") {
       table.background.color = "#fdfcfc"
     ) |>
     gtsave(
-      filename = here("results", "male", "figures", "styrkur_table.png"),
+      filename = here(
+        "results",
+        "male",
+        end_date,
+        "figures",
+        "styrkur_table.png"
+      ),
       expand = 15
     )
 
@@ -979,6 +1000,7 @@ generate_model_results <- function(sex = "male") {
     filename = here(
       "results",
       sex,
+      end_date,
       "figures",
       "home_advantage.png"
     ),

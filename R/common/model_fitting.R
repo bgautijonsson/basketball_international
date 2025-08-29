@@ -27,6 +27,7 @@ Sys.setlocale("LC_ALL", "is_IS.UTF-8")
 fit_football_model <- function(
   sex = "male",
   model_name = "2d_student_t.stan",
+  end_date = Sys.Date(),
   chains = 4,
   parallel_chains = 4,
   iter_warmup = 1000,
@@ -40,7 +41,7 @@ fit_football_model <- function(
   }
 
   # Prepare data for the specified sex
-  stan_data <- prepare_football_data(sex)
+  stan_data <- prepare_football_data(sex, end_date)
 
   # Compile model
   model <- cmdstan_model(
@@ -60,6 +61,6 @@ fit_football_model <- function(
 
   # Save results
   results$save_object(
-    file = here("results", sex, "fit.rds")
+    file = here("results", sex, end_date, "fit.rds")
   )
 }

@@ -36,10 +36,15 @@ Sys.setlocale("LC_ALL", "is_IS.UTF-8")
 #'
 #' @return List containing prepared data for Stan model
 #' @export
-prepare_football_data <- function(sex) {
+prepare_football_data <- function(sex, end_date = Sys.Date()) {
   # Validate input
   if (!sex %in% c("male", "female")) {
     stop("Sex must be either 'male' or 'female'")
+  }
+
+  if (!dir.exists(here("results", sex, end_date))) {
+    dir.create(here("results", sex, end_date), recursive = TRUE)
+    dir.create(here("results", sex, end_date, "figures"), recursive = TRUE)
   }
 
   #### Data Prep ####
@@ -58,6 +63,9 @@ prepare_football_data <- function(sex) {
       away_goals
     ) |>
     arrange(date) |>
+    filter(
+      date <= end_date
+    ) |> 
     mutate(
       game_nr = row_number()
     ) |>
@@ -90,7 +98,7 @@ prepare_football_data <- function(sex) {
 
   write_csv(
     d,
-    here("results", sex, "d.csv")
+    here("results", sex, end_date, "d.csv")
   )
 
   # Create team mapping
@@ -102,7 +110,7 @@ prepare_football_data <- function(sex) {
 
   write_csv(
     teams,
-    here("results", sex, "teams.csv")
+    here("results", sex, end_date, "teams.csv")
   )
 
   # Read and prepare next games for prediction
@@ -110,8 +118,8 @@ prepare_football_data <- function(sex) {
     here("data", sex, "schedule.csv")
   ) |>
     filter(
-      date >= today(),
-      (date <= today() + 14) | (division == 1)
+      date >= end_date,
+      (date <= end_date + 14) | (division == 1)
     ) |>
     arrange(date) |>
     filter(
@@ -250,7 +258,7 @@ prepare_football_data <- function(sex) {
 
   write_csv(
     model_d,
-    here("results", sex, "model_d.csv")
+    here("results", sex, end_date, "model_d.csv")
   )
 
   # Create time between matches matrix
@@ -311,7 +319,7 @@ prepare_football_data <- function(sex) {
 
   write_csv(
     top_teams,
-    here("results", sex, "top_teams.csv")
+    here("results", sex, end_date, "top_teams.csv")
   )
 
   next_games <- next_games |>
@@ -343,7 +351,7 @@ prepare_football_data <- function(sex) {
 
   write_csv(
     next_games,
-    here("results", sex, "next_games.csv")
+    here("results", sex, end_date, "next_games.csv")
   )
 
   # Prepare prediction data
@@ -362,7 +370,7 @@ prepare_football_data <- function(sex) {
 
   write_csv(
     pred_d,
-    here("results", sex, "pred_d.csv")
+    here("results", sex, end_date, "pred_d.csv")
   )
 
   # Prepare Stan data

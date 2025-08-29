@@ -1,0 +1,236 @@
+library(tidyverse)
+library(here)
+library(purrr)
+library(glue)
+library(scales)
+library(ggtext)
+
+hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
+d <- read_csv(
+  here("results", "male", today() - 1, "d.csv")
+) |> 
+  select(-division) |> 
+  filter(
+    date >= clock::date_build(2025, 08, 27)
+  ) |> 
+  arrange(date) |> 
+  mutate(
+    game_nr = row_number() |> rev(),
+    .by = date
+  ) |> 
+  arrange(date, game_nr) |> 
+  mutate(
+    game_nr = row_number()
+  ) |> 
+  arrange(game_nr) |>
+  mutate(
+    home2 = case_when(
+      away %in% hosts ~ away,
+      TRUE ~ home
+    ),
+    away2 = case_when(
+      home2 != home ~ home,
+      TRUE ~ away
+    ),
+    home_goals2 = case_when(
+      away %in% hosts ~ away_goals,
+      TRUE ~ home_goals
+    ),
+    away_goals2 = case_when(
+      home2 != home ~ home_goals,
+      TRUE ~ away_goals
+    ), 
+  ) |>
+  select(-home, -away, -home_goals, -away_goals) |>
+  rename(
+    home = home2,
+    away = away2,
+    home_goals = home_goals2,
+    away_goals = away_goals2
+  )
+
+posterior_goals <- here("results", "male") |> 
+  list.files(pattern = "[0-9]+-[0-9]+-[0-9]+", full.names = TRUE) |> 
+  list.files(pattern = "posterior_goals", full.names = TRUE) |> 
+  map(
+    function(x) {
+      read_csv(x) |> 
+        mutate(
+          fit_date = ymd(x)
+        )
+    }
+  ) |> 
+  list_rbind() |> 
+  select(-game_nr, -division)
+
+posterior_goals
+
+plot_dat <- posterior_goals |>
+  semi_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  mutate(
+    goal_diff = away_goals - home_goals
+  ) |>
+  reframe(
+    median = median(goal_diff),
+    coverage = c(
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.975
+    ),
+    lower = quantile(goal_diff, 0.5 - coverage / 2),
+    upper = quantile(goal_diff, 0.5 + coverage / 2),
+    home_win = mean(goal_diff < 0),
+    away_win = 1 - home_win,
+    .by = c(date, home, away, fit_date)
+  ) |>
+  mutate(
+    home_win = percent(home_win, accuracy = 1),
+    away_win = percent(away_win, accuracy = 1),
+    home_label = glue("{home} ({home_win})"),
+    away_label = glue("{away} ({away_win})")
+  ) |> 
+  inner_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(home, away)
+  ) 
+
+plot_dat |> 
+  ggplot(aes(median, max(game_nr) - game_nr + 1)) +
+  geom_vline(
+    xintercept = 0,
+    lty = 2,
+    alpha = 0.4,
+    linewidth = 0.3
+  ) +
+  geom_hline(
+    yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
+    linewidth = 8,
+    alpha = 0.1
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5,
+    col = "red",
+    aes(x = away_goals - home_goals)
+  ) +
+  geom_segment(
+    aes(
+      x = lower,
+      xend = upper,
+      yend = max(game_nr) - game_nr + 1,
+      alpha = -coverage
+    ),
+    linewidth = 3
+  ) +
+  geom_richtext(
+    data = tibble(x = 1),
+    inherit.aes = FALSE,
+    x = -50,
+    y = 0.1,
+    label.colour = NA,
+    fill = NA,
+    label = "&larr; Heimalið vinnur",
+    hjust = 0,
+    size = 4.5,
+    colour = "grey40"
+  ) +
+  geom_richtext(
+    data = tibble(x = 1),
+    inherit.aes = FALSE,
+    x = 50,
+    y = 0.1,
+    label.colour = NA,
+    fill = NA,
+    label = "Gestir vinna &rarr;",
+    hjust = 1,
+    size = 4.5,
+    colour = "grey40"
+  ) +
+  scale_alpha_continuous(
+    range = c(0, 0.3),
+    guide = guide_none()
+  ) +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    labels = \(x) abs(x)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(length(unique(plot_dat$game_nr)), 1),
+    labels = \(x) {
+      plot_dat |>
+        distinct(game_nr, home_label, away_label) |>
+        arrange(game_nr) |> 
+        pull(home_label)
+    },
+    sec.axis = sec_axis(
+      transform = \(x) x,
+      breaks = seq(length(unique(plot_dat$game_nr)), 1),
+      labels = \(x) {
+        plot_dat |>
+          distinct(game_nr, home_label, away_label) |>
+          arrange(game_nr) |> 
+          pull(away_label)
+      },
+      guide = guide_axis(cap = "both")
+    )
+  ) +
+  coord_cartesian(
+    ylim = c(1, max(plot_dat$game_nr)),
+    xlim = c(-50, 50),
+    clip = "off"
+  ) +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(5, 5, 5, 5)
+  ) +
+  labs(
+    x = "Stigamismunur",
+    y = NULL,
+    colour = NULL,
+    title = "Hversu vel hefur Körfuboltaspá Metils gengið?",
+    subtitle = str_c(
+      "Niðurstaða leiks sýnd með rauðu",
+      " | ",
+      "Sigurlíkur merktar inni í sviga"
+    )
+  )
+
+ggsave(
+  filename = here("results", "male", "accuracy.png"),
+  width = 8,
+  height = 1.2 * 8,
+  scale = 1.1
+)
