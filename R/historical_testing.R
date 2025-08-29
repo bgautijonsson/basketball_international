@@ -65,6 +65,8 @@ posterior_goals <- here("results", "male") |>
 
 posterior_goals
 
+#### Goal Diff ####
+
 plot_dat <- posterior_goals |>
   semi_join(
     d,
@@ -233,4 +235,138 @@ ggsave(
   width = 8,
   height = 1.2 * 8,
   scale = 1.1
+)
+
+
+#### Total Goals ####
+
+
+plot_dat <- posterior_goals |>
+  semi_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  mutate(
+    total_goals = home_goals + away_goals
+  ) |>
+  reframe(
+    median = median(total_goals),
+    coverage = c(
+      0.025,
+      0.05,
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8,
+      0.9,
+      0.95,
+      0.975
+    ),
+    lower = quantile(total_goals, 0.5 - coverage / 2),
+    upper = quantile(total_goals, 0.5 + coverage / 2),
+    .by = c(date, home, away, fit_date)
+  ) |>
+  inner_join(
+    d,
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(home, away)
+  ) 
+
+plot_dat |> 
+  ggplot(aes(median, max(game_nr) - game_nr + 1)) +
+  geom_hline(
+    yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
+    linewidth = 8,
+    alpha = 0.1
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5
+  ) +
+  geom_point(
+    shape = "|",
+    size = 5,
+    col = "red",
+    aes(x = away_goals + home_goals)
+  ) +
+  geom_segment(
+    aes(
+      x = lower,
+      xend = upper,
+      yend = max(game_nr) - game_nr + 1,
+      alpha = -coverage
+    ),
+    linewidth = 3
+  ) +
+  scale_alpha_continuous(
+    range = c(0, 0.3),
+    guide = guide_none()
+  ) +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = breaks_extended(10)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(length(unique(plot_dat$game_nr)), 1),
+    labels = \(x) {
+      plot_dat |>
+        distinct(game_nr, home, away) |>
+        arrange(game_nr) |> 
+        pull(home)
+    },
+    sec.axis = sec_axis(
+      transform = \(x) x,
+      breaks = seq(length(unique(plot_dat$game_nr)), 1),
+      labels = \(x) {
+        plot_dat |>
+          distinct(game_nr, home, away) |>
+          arrange(game_nr) |> 
+          pull(away)
+      },
+      guide = guide_axis(cap = "both")
+    )
+  ) +
+  coord_cartesian(
+    ylim = c(1, max(plot_dat$game_nr)),
+    clip = "off"
+  ) +
+  theme(
+    legend.position = "none",
+    plot.margin = margin(5, 5, 5, 5)
+  ) +
+  labs(
+    x = "Stigafjöldi",
+    y = NULL,
+    colour = NULL,
+    title = "Hversu vel hefur Körfuboltaspá Metils gengið að spá stigafjölda?",
+    subtitle = str_c(
+      "Raunverulegur fjöldi stiga leikja sýnd með rauðu"
+    )
+  )
+
+
+ggsave(
+  filename = here("results", "male", "accuracy_totalgoals.png"),
+  width = 8,
+  height = 1.2 * 8,
+  scale = 1.15
 )
