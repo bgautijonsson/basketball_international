@@ -406,16 +406,14 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     mutate(
       result = case_when(
         home_goals > away_goals ~ "home",
-        home_goals < away_goals ~ "away",
-        TRUE ~ "tie"
+        TRUE ~ "away"
       )
     ) |>
     pivot_longer(c(home, away), values_to = "team") |>
     mutate(
       points = case_when(
-        result == "tie" ~ 1,
         result == name ~ 2,
-        TRUE ~ 0
+        TRUE ~ 1
       ),
       scored = if_else(
         name == "home",

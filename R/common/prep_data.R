@@ -118,7 +118,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     here("data", sex, "schedule.csv")
   ) |>
     filter(
-      date >= end_date,
+      date > end_date,
       (date <= end_date + 14) | (division == 1)
     ) |>
     arrange(date) |>
