@@ -762,6 +762,6 @@ library(patchwork)
 ggsave(
   filename = here("results", "male", "accuracy_home_away.png"),
   width = 8,
-  height = 0.6 * 8,
+  height = 0.7 * 8,
   scale = 1.4
 )
