@@ -9,7 +9,7 @@ theme_set(theme_metill())
 
 hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
 d <- read_csv(
-  here("results", "male", today(), "d.csv")
+  here("results", "male", today() - 1, "d.csv")
 ) |> 
   select(-division) |> 
   filter(
@@ -762,6 +762,6 @@ library(patchwork)
 ggsave(
   filename = here("results", "male", "accuracy_home_away.png"),
   width = 8,
-  height = 0.8 * 8,
+  height = 1 * 8,
   scale = 1.4
 )
