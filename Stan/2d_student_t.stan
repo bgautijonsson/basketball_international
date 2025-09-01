@@ -23,6 +23,7 @@ data {
   array[N] int<lower=0> goals1;       // Goals scored by   team 1 (home)
   array[N] int<lower=0> goals2;       // Goals scored by team 2 (away)
   array[N] int<lower=1> division;  // Division ID for each game
+  array[N] int<lower=0> casual;  // Indicator whether game is casual
   
   // Prediction data
   int<lower = 0> N_top_teams;
@@ -111,8 +112,8 @@ parameters {
   vector<lower = 0>[K] home_advantage_def;  
 
   // Do teams play more relaxed for friendly international games?
-  vector<lower = 0>[K] off_friendly;
-  vector<lower = 0>[K] def_friendly;
+  vector<lower = 0>[K] off_casual;
+  vector<lower = 0>[K] def_casual;
 
   // Team-specific sigma parameters
   vector[K] z_sigma_team;        // Team-specific scoring variability
@@ -203,8 +204,8 @@ model {
   mean_sigma_team ~ normal(2, 2);
 
   // Prior for friendly parameter
-  off_friendly ~ normal(0, 20);
-  def_friendly ~ normal(0, 20);
+  off_casual ~ normal(0, 20);
+  def_casual ~ normal(0, 20);
 
   // Prior for mean goals
   mean_goals0 ~ normal(80, 10);
@@ -234,14 +235,14 @@ model {
     // Away team
     off[2] = offense[round2[n], team2[n]];
     def[2] = defense[round2[n], team2[n]];
-    /*
-    if (division[n] == 2) {
-      off[1] = off[1] - off_friendly[team1[n]];
-      def[1] = def[1] - def_friendly[team1[n]];
-      off[2] = off[2] - off_friendly[team2[n]];
-      def[2] = def[2] - def_friendly[team2[n]];
+    
+    if (casual[n] == 1) {
+      off[1] = off[1] - off_casual[team1[n]];
+      def[1] = def[1] - def_casual[team1[n]];
+      off[2] = off[2] - off_casual[team2[n]];
+      def[2] = def[2] - def_casual[team2[n]];
     }
-    */
+    
 
     // Expected goals
     mu[1] = mean_goals[season[n]] + off[1] - def[2];

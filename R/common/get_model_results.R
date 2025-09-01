@@ -147,7 +147,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     ) |>
     mutate(
       game_nr = game_nr - min(game_nr) + 1
-    ) |> 
+    ) |>
     select(
       iteration = .draw,
       game_nr,
@@ -1007,7 +1007,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     scale = 1.4
   )
 
-  results$draws("off_friendly") |>
+  results$draws("off_casual") |>
     as_draws_df() |>
     as_tibble() |>
     pivot_longer(c(-.chain, -.draw, -.iteration)) |>
@@ -1017,7 +1017,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       value = value
     ) |>
     bind_rows(
-      results$draws("def_friendly") |>
+      results$draws("def_casual") |>
         as_draws_df() |>
         as_tibble() |>
         pivot_longer(c(-.chain, -.draw, -.iteration)) |>
@@ -1122,11 +1122,11 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       y = NULL,
       colour = NULL,
       title = "Spila lið verr í vináttuleikjum?",
-      subtitle = "Skora lið færri mörk í vináttuleikjum? Fá þau á sig fleiri mörk?"
+      subtitle = "Skora lið færri stig í vináttuleikjum? Fá þau á sig fleiri stig?"
     )
 
   ggsave(
-    filename = here("results", "male", "figures", "friendly.png"),
+    filename = here("results", "male", end_date, "figures", "casual.png"),
     width = 8,
     height = 0.9 * 8,
     scale = 1.1

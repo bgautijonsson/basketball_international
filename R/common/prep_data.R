@@ -93,7 +93,31 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
           (date < clock::date_build(2019, 8, 31)) ~
           1,
         TRUE ~ team1_home
-      )
+      ),
+      casual = 1 * (division == 2), # If friendly international games, then casual,
+      casual = case_when(
+        (division == 1) &
+          (season == 2025) &
+          (date < clock::date_build(2025, 8, 25)) ~
+          1,
+        (division == 1) &
+          (season == 2022) &
+          (date < clock::date_build(2022, 9, 1)) ~
+          1,
+        (division == 1) &
+          (season == 2017) &
+          (date < clock::date_build(2017, 8, 31)) ~
+          1,
+        (division == 3) &
+          (season == 2023) &
+          (date < clock::date_build(2023, 8, 25)) ~
+          1,
+        (division == 3) &
+          (season == 2019) &
+          (date < clock::date_build(2019, 8, 31)) ~
+          1,
+        TRUE ~ casual
+      ) # If qualifyers for large tournaments, then casual.
     )
 
   write_csv(
@@ -390,6 +414,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     goals1 = model_d$home_goals,
     goals2 = model_d$away_goals,
     division = model_d$division,
+    casual = model_d$casual,
     team1_pred = pred_d$home_nr,
     team2_pred = pred_d$away_nr,
     team1_home_pred = pred_d$team1_home_pred,

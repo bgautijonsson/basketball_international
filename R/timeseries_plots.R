@@ -1,6 +1,22 @@
 library(tidyverse)
 library(metill)
 library(geomtextpath)
+library(cmdstanr)
+library(posterior)
+library(here)
+library(ggtext)
+theme_set(theme_metill())
+end_date <- today() - 1
+sex <- "male"
+
+#### Data Prep ####
+results <- read_rds(here("results", sex, end_date, "fit.rds"))
+
+d <- read_csv(here("results", sex, end_date, "d.csv"))
+teams <- read_csv(here("results", sex, end_date, "teams.csv"))
+next_games <- read_csv(here("results", sex, end_date, "next_games.csv"))
+top_teams <- read_csv(here("results", sex, end_date, "top_teams.csv"))
+pred_d <- read_csv(here("results", sex, end_date, "pred_d.csv"))
 
 offense <- results$summary("offense")
 defense <- results$summary("defense")
@@ -58,13 +74,14 @@ plot_dat |>
   ) |>
   filter(
     team %in% c(
-      "Iceland", "Belgium"
+      "Iceland", "Poland"
     )
   ) |>
   mutate(
     team = case_when(
       team == "Iceland" ~ "Ísland",
       team == "Belgium" ~ "Belgía",
+      team == "Poland" ~ "Pólland",
       TRUE ~ team
     )
   ) |> 
@@ -78,7 +95,8 @@ plot_dat |>
     aes(
       group = team,
       label = team,
-      col = team
+      col = team,
+      hjust = team
     ),
     linewidth = 1,
     size = 5
@@ -124,7 +142,14 @@ plot_dat |>
   scale_colour_manual(
     values = c(
       "Ísland" = "#02529C",
-      "Belgía" = "#2D2926"
+      "Belgía" = "#2D2926",
+      "Pólland" = "#DC143C"
+    )
+  ) +
+  scale_hjust_manual(
+    values = c(
+      "Ísland" = 0.3,
+      "Pólland" = 0.74
     )
   ) +
   facet_wrap(
@@ -135,7 +160,7 @@ plot_dat |>
     legend.position = "none"
   ) +
   labs(
-    title = "Þróun styrks landsliða Íslands og Belgíu í Körfubolta karla",
+    title = "Þróun styrks landsliða Íslands og Póllands í Körfubolta karla",
     subtitle = "Íslenska karlalandsliðið hefur bætt sig í bæði sóknar- og varnarstyrk síðustu árin",
     x = NULL,
     y = "Samanburður við lönd sem hafa spilað á EM eða HM",
@@ -144,7 +169,7 @@ plot_dat |>
   )
 
 ggsave(
-  filename = here("results", "male", "evolution_iceland_belgium.png"),
+  filename = here("results", "male", "evolution_iceland_poland.png"),
   width = 8,
   height = 0.8 * 8,
   scale = 1.2
