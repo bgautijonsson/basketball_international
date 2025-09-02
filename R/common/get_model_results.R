@@ -107,18 +107,18 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
   if (!sex %in% c("male", "female")) {
     stop("Sex must be either 'male' or 'female'")
   }
-
+  
   #### Data Prep ####
   results <- read_rds(here("results", sex, end_date, "fit.rds"))
-
+  
   d <- read_csv(here("results", sex, end_date, "d.csv"))
   teams <- read_csv(here("results", sex, end_date, "teams.csv"))
   next_games <- read_csv(here("results", sex, end_date, "next_games.csv"))
   top_teams <- read_csv(here("results", sex, end_date, "top_teams.csv"))
   pred_d <- read_csv(here("results", sex, end_date, "pred_d.csv"))
-
+  
   #### Next-Round Predictions ####
-
+  
   posterior_goals <- results$draws(c("goals1_pred", "goals2_pred")) |>
     as_draws_df() |>
     as_tibble() |>
@@ -158,10 +158,10 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       home_goals,
       away_goals
     )
-
+  
   posterior_goals |>
     write_csv(here("results", "male", end_date, "posterior_goals.csv"))
-
+  
   plot_dat <- posterior_goals |>
     mutate(
       goal_diff = away_goals - home_goals
@@ -198,12 +198,12 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       home = glue("{home} ({home_win})"),
       away = glue("{away} ({away_win})")
     )
-
+  
   plot_dat |>
     filter(
       str_detect(away, "Iceland")
     )
-
+  
   plot_dat |>
     ggplot(aes(median, max(game_nr) - game_nr + 1)) +
     geom_vline(
@@ -301,7 +301,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         "Sigurlíkur merktar inni í sviga"
       )
     )
-
+  
   ggsave(
     filename = here(
       "results",
@@ -314,9 +314,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     height = 0.8 * 8,
     scale = 1.2
   )
-
+  
   #### Group Stage Predictions ####
-
+  
   groups <- tibble(
     data = list(
       group_a = list(
@@ -361,7 +361,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       .by = name
     ) |>
     select(group, team = value)
-
+  
   posterior_goals <- results$draws(c("goals1_pred", "goals2_pred")) |>
     as_draws_df() |>
     as_tibble() |>
@@ -397,7 +397,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       home_goals,
       away_goals
     )
-
+  
   base_points <- d |>
     filter(
       date >= clock::date_build(2025, 8, 27),
@@ -435,7 +435,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       .by = c(team)
     ) |>
     arrange(desc(base_points))
-
+  
   p_top <- posterior_goals |>
     mutate(
       result = case_when(
@@ -518,7 +518,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     ) |>
     arrange(group, desc(mean_points)) |>
     select(-lower_pos, -upper_pos)
-
+  
   p_top |>
     mutate(
       group = str_c(group, "-riðill")
@@ -618,11 +618,11 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       ),
       expand = c(1, 5, 1, -2)
     )
-
+  
   #### Posterior Results ####
-
+  
   #### Current Strengths ####
-
+  
   plot_dat_away <- results$draws("cur_strength_away") |>
     as_draws_df() |>
     as_tibble() |>
@@ -666,7 +666,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         levels = unique(team)[order(unique(median[type == "Samtals"]))]
       )
     )
-
+  
   plot_dat_home <- results$draws("cur_strength_home") |>
     as_draws_df() |>
     as_tibble() |>
@@ -710,7 +710,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         levels = unique(team)[order(unique(median[type == "Samtals"]))]
       )
     )
-
+  
   plot_dat <- plot_dat_away |>
     mutate(
       loc = "Gestir"
@@ -731,9 +731,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         pivot_longer(c(home, away), values_to = "team") |>
         distinct(team)
     )
-
+  
   dodge <- 0.3
-
+  
   plot_dat |>
     semi_join(
       groups
@@ -789,16 +789,16 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       title = "Styrkur landsliða fyrir EM karla í körfubolta",
       subtitle = "Metið með körfuboltalíkani Metils"
     )
-
+  
   ggsave(
     filename = here("results", sex, end_date, "figures", "styrkur.png"),
     width = 8,
     height = 0.7 * 8,
     scale = 1.1
   )
-
+  
   hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
-
+  
   plot_dat |>
     semi_join(groups) |>
     filter(
@@ -874,9 +874,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       ),
       expand = c(1, 5, 1, -2)
     )
-
+  
   #### Home Advantages ####
-
+  
   results$draws("home_advantage_tot") |>
     as_draws_df() |>
     as_tibble() |>
@@ -993,7 +993,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       title = "Heimavallaráhrif landsliða karla í körfubolta",
       subtitle = "Skora lið fleiri stig á heimavelli? Skora gestirnir þeirra færri stig?"
     )
-
+  
   ggsave(
     filename = here(
       "results",
@@ -1006,8 +1006,11 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     height = 0.6 * 8,
     scale = 1.4
   )
-
-  results$draws("off_casual") |>
+  
+  
+  #### Strength gains during championships ####
+  
+  plot_dat <- results$draws("off_casual") |>
     as_draws_df() |>
     as_tibble() |>
     pivot_longer(c(-.chain, -.draw, -.iteration)) |>
@@ -1072,7 +1075,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         ]))]
       ),
       type = fct_relevel(type, "Sókn", "Vörn", "Samtals")
-    ) |>
+    )
+  
+  plot_dat |> 
     ggplot(aes(median, team)) +
     geom_vline(
       xintercept = 0,
@@ -1124,124 +1129,114 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       title = "Spila lið verr í vináttuleikjum?",
       subtitle = "Skora lið færri stig í vináttuleikjum? Fá þau á sig fleiri stig?"
     )
-
+  
   ggsave(
     filename = here("results", "male", end_date, "figures", "casual.png"),
     width = 8,
     height = 0.9 * 8,
     scale = 1.1
   )
+  
+  plot_dat_away <- results$draws("cur_strength_away") |>
+    as_draws_df() |>
+    as_tibble() |>
+    pivot_longer(c(-.chain, -.draw, -.iteration)) |>
+    mutate(
+      team = teams$team[parse_number(name)],
+      type = "Samtals"
+    ) |>
+    bind_rows(
+      results$draws("cur_offense_away") |>
+        as_draws_df() |>
+        as_tibble() |>
+        pivot_longer(c(-.chain, -.draw, -.iteration)) |>
+        mutate(
+          team = teams$team[parse_number(name)],
+          type = "Sókn"
+        )
+    ) |>
+    bind_rows(
+      results$draws("cur_defense_away") |>
+        as_draws_df() |>
+        as_tibble() |>
+        pivot_longer(c(-.chain, -.draw, -.iteration)) |>
+        mutate(
+          team = teams$team[parse_number(name)],
+          type = "Vörn"
+        )
+    ) |>
+    reframe(
+      median = median(value),
+      coverage = c(0.05, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+      lower = quantile(value, 0.5 - coverage / 2),
+      upper = quantile(value, 0.5 + coverage / 2),
+      .by = c(team, type)
+    ) |>
+    mutate(
+      type = as_factor(type) |>
+        fct_relevel("Sókn", "Vörn", "Samtals"),
+      team = factor(
+        team,
+        levels = unique(team)[order(unique(median[type == "Samtals"]))]
+      )
+    )
+  
+  plot_dat |>
+    distinct(
+      team,
+      type,
+      median
+    ) |>
+    pivot_wider(names_from = type, values_from = median) |>
+    select(team, Sókn, Vörn, Samtals) |>
+    arrange(desc(Samtals)) |>
+    gt() |>
+    fmt_number(-team, decimals = 1) |>
+    cols_align(columns = team, "left") |>
+    cols_label(
+      team = "",
+      Sókn = md(
+        "**Sókn**<br>*Hvað skorar liðið að jafnaði mikið meira á stórmótum?*"
+      ),
+      Vörn = md(
+        "**Vörn**<br>*Hvað verst liðið að jafnaði gegn mörgum stigum fleiri á stórmótum?*"
+      ),
+      Samtals = md(
+        "**Samtals**<br>*Hver eru áhrifin í heild sinni?*"
+      )
+    ) |>
+    gt_plt_bar(column = Sókn, scale_type = "number", color = "#08306b") |>
+    gt_plt_bar(column = Vörn, scale_type = "number", color = "#67000d") |>
+    gt_plt_bar(column = Samtals, scale_type = "number", color = "#000000") |>
+    tab_style(
+      locations = cells_title(groups = "title"),
+      style = cell_text(
+        weight = 1000,
+        align = "left"
+      )
+    ) |>
+    tab_style(
+      locations = cells_title(groups = "subtitle"),
+      style = cell_text(
+        weight = 7000,
+        align = "left"
+      )
+    ) |>
+    tab_header(
+      title = "Spila þjóðir betur á stórmótum?",
+      subtitle = "Landslið fá oft ekki aðgang að stórsjörnum nema á stórmótum. Sjáum við merki um að styrkur þeirra aukist á stórmótum vegna þessa?"
+    ) |>
+    tab_options(
+      table.background.color = "#fdfcfc"
+    ) |> 
+    gtsave(
+      filename = here(
+        "results",
+        "male",
+        end_date,
+        "figures",
+        "casual_table.png"
+      ),
+      expand = c(1, 5, 1, -2)
+    )
 }
-
-# plot_dat |>
-#   mutate(
-#     date2 = date
-#   ) |>
-#   group_by(date2) |>
-#   dplyr::group_map(
-#     function(dat, ...) {
-#       dat |>
-#         ggplot(aes(median, max(game_nr) - game_nr + 1)) +
-#         geom_vline(
-#           xintercept = 0,
-#           lty = 2,
-#           alpha = 0.4,
-#           linewidth = 0.3
-#         ) +
-#         geom_hline(
-#           yintercept = seq(1, length(unique(dat$game_nr)), 2),
-#           linewidth = 8,
-#           alpha = 0.1
-#         ) +
-#         geom_point(
-#           shape = "|",
-#           size = 5
-#         ) +
-#         geom_segment(
-#           aes(
-#             x = lower,
-#             xend = upper,
-#             yend = max(game_nr) - game_nr + 1,
-#             alpha = -coverage
-#           ),
-#           linewidth = 3
-#         ) +
-#         geom_richtext(
-#           data = tibble(x = 1),
-#           inherit.aes = FALSE,
-#           x = -50,
-#           y = -0.55,
-#           label.colour = NA,
-#           fill = NA,
-#           label = "&larr; Heimalið vinnur",
-#           hjust = 0,
-#           size = 4.5,
-#           colour = "grey40"
-#         ) +
-#         geom_richtext(
-#           data = tibble(x = 1),
-#           inherit.aes = FALSE,
-#           x = 50,
-#           y = -0.55,
-#           label.colour = NA,
-#           fill = NA,
-#           label = "Gestir vinna &rarr;",
-#           hjust = 1,
-#           size = 4.5,
-#           colour = "grey40"
-#         ) +
-#         scale_alpha_continuous(
-#           range = c(0, 0.3),
-#           guide = guide_none()
-#         ) +
-#         scale_x_continuous(
-#           guide = guide_axis(cap = "both"),
-#           labels = \(x) abs(x)
-#         ) +
-#         scale_y_continuous(
-#           guide = guide_axis(cap = "both"),
-#           breaks = seq(length(unique(dat$game_nr)), 1),
-#           labels = \(x) {
-#             dat |>
-#               distinct(game_nr, home, away) |>
-#               pull(home)
-#           },
-#           sec.axis = sec_axis(
-#             transform = \(x) x,
-#             breaks = seq(length(unique(dat$game_nr)), 1),
-#             labels = \(x) {
-#               dat |>
-#                 distinct(game_nr, home, away) |>
-#                 pull(away)
-#             },
-#             guide = guide_axis(cap = "both")
-#           )
-#         ) +
-#         coord_cartesian(
-#           ylim = c(1, length(unique((dat$game_nr)))),
-#           xlim = c(-50, 50),
-#           clip = "off"
-#         ) +
-#         theme(
-#           legend.position = "none",
-#           plot.margin = margin(5, 5, 5, 5)
-#         ) +
-#         labs(
-#           x = "Stigamismunur",
-#           y = NULL,
-#           subtitle = unique(dat$date)
-#         )
-#     }
-#   ) |>
-#   patchwork::wrap_plots(ncol = 1)
-# labs(
-#   x = "Stigamismunur",
-#   y = NULL,
-#   colour = NULL,
-#   title = "Körfuboltaspá Metils",
-#   subtitle = str_c(
-#     "Líkindadreifing spár um úrslit næstu leikja",
-#     " | ",
-#     "Sigurlíkur merktar inni í sviga"
-#   )
-# )
