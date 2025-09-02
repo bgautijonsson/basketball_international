@@ -9,7 +9,7 @@ theme_set(theme_metill())
 
 hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
 d <- read_csv(
-  here("results", "male", today() - 1, "d.csv")
+  here("results", "male", today(), "d.csv")
 ) |> 
   select(-division) |> 
   filter(

@@ -1,4 +1,10 @@
 season,division,date,home,away,home_goals,away_goals
+2025,1,2025-09-01,Serbia,Czech Republic,82,60
+2025,1,2025-09-01,Finland,Lithuania,78,81
+2025,1,2025-09-01,Portugal,Latvia,62,78
+2025,1,2025-09-01,Germany,Great Britain,120,57
+2025,1,2025-09-01,Estonia,Turkey,64,84
+2025,1,2025-09-01,Sweden,Montenegro,81,87
 2025,1,2025-08-31,Bosnia & Herzegovina,Italy,79,96
 2025,1,2025-08-31,Poland,Iceland,84,75
 2025,1,2025-08-31,Spain,Cyprus,91,47
@@ -265,14 +271,6 @@ season,division,date,home,away,home_goals,away_goals
 2025,1,2024-02-26,Georgia,Serbia,63,76
 2025,1,2024-02-26,Poland,North Macedonia,71,96
 2025,1,2024-02-26,Finland,Denmark,89,85
-2025,1,2024-02-25,Ukraine,Portugal,77,79
-2025,1,2024-02-25,Montenegro,Sweden,95,70
-2025,1,2024-02-25,Hungary,Italy,62,83
-2025,1,2024-02-25,Slovenia,Israel,88,79
-2025,1,2024-02-25,Belgium,Spain,58,53
-2025,1,2024-02-25,Latvia,Slovakia,64,52
-2025,1,2024-02-25,Bulgaria,Germany,67,62
-2025,1,2024-02-25,Turkey,Iceland,76,75
 2024,2,2024-02-20,Lebanon,Syria,94,83
 2024,2,2024-02-18,Egypt,Qatar,82,67
 2024,2,2024-02-18,Syria,Iraq,55,66
