@@ -1,4 +1,16 @@
 season,division,date,home,away,home_goals,away_goals
+2025,1,2025-09-03,Turkey,Serbia,95,90
+2025,1,2025-09-03,Finland,Germany,61,91
+2025,1,2025-09-03,Czech Republic,Latvia,75,109
+2025,1,2025-09-03,Lithuania,Sweden,74,71
+2025,1,2025-09-03,Estonia,Portugal,65,68
+2025,1,2025-09-03,Montenegro,Great Britain,83,89
+2025,1,2025-09-02,France,Poland,83,76
+2025,1,2025-09-02,Italy,Spain,67,63
+2025,1,2025-09-02,Cyprus,Georgia,61,93
+2025,1,2025-09-02,Iceland,Slovenia,79,87
+2025,1,2025-09-02,Belgium,Israel,89,92
+2025,1,2025-09-02,Greece,Bosnia & Herzegovina,77,80
 2025,1,2025-09-01,Serbia,Czech Republic,82,60
 2025,1,2025-09-01,Finland,Lithuania,78,81
 2025,1,2025-09-01,Portugal,Latvia,62,78
@@ -191,14 +203,6 @@ season,division,date,home,away,home_goals,away_goals
 2025,1,2024-11-22,Turkey,Hungary,92,66
 2025,1,2024-11-22,Latvia,Belgium,75,72
 2025,1,2024-11-22,Slovakia,Spain,72,76
-2025,1,2024-11-21,Great Britain,Greece,73,72
-2025,1,2024-11-21,Croatia,Bosnia & Herzegovina,89,76
-2025,1,2024-11-21,Cyprus,France,59,75
-2025,1,2024-11-21,Czech Republic,Netherlands,96,74
-2025,1,2024-11-21,Denmark,Serbia,52,72
-2025,1,2024-11-21,North Macedonia,Lithuania,67,82
-2025,1,2024-11-21,Poland,Estonia,78,82
-2025,1,2024-11-21,Finland,Georgia,83,90
 2024,2,2024-08-14,Senegal,Tunisia,60,65
 2024,2,2024-08-12,Senegal,Tunisia,66,64
 2024,2,2024-07-23,Spain,Puerto Rico,107,84
@@ -263,14 +267,6 @@ season,division,date,home,away,home_goals,away_goals
 2024,2,2024-06-14,Lithuania,Lebanon,95,66
 2024,2,2024-06-12,Lithuania,Lebanon,105,66
 2024,2,2024-06-10,Lithuania,Lebanon,100,71
-2025,1,2024-02-26,Czech Republic,Great Britain,90,82
-2025,1,2024-02-26,Croatia,Cyprus,92,63
-2025,1,2024-02-26,Netherlands,Greece,72,74
-2025,1,2024-02-26,Bosnia & Herzegovina,France,64,74
-2025,1,2024-02-26,Estonia,Lithuania,65,59
-2025,1,2024-02-26,Georgia,Serbia,63,76
-2025,1,2024-02-26,Poland,North Macedonia,71,96
-2025,1,2024-02-26,Finland,Denmark,89,85
 2024,2,2024-02-20,Lebanon,Syria,94,83
 2024,2,2024-02-18,Egypt,Qatar,82,67
 2024,2,2024-02-18,Syria,Iraq,55,66
