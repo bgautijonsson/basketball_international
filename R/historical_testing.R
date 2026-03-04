@@ -7,9 +7,11 @@ library(ggtext)
 library(metill)
 theme_set(theme_metill())
 
+lw <- 5
+
 hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
 d <- read_csv(
-  here("results", "male", today() - 1, "d.csv")
+  here("results", "male", today(), "d.csv")
 ) |> 
   select(-division) |> 
   filter(
@@ -136,7 +138,7 @@ p1 <- plot_dat |>
   ) +
   geom_hline(
     yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
-    linewidth = 8,
+    linewidth = lw,
     alpha = 0.1
   ) +
   geom_point(
@@ -209,18 +211,10 @@ p1 <- plot_dat |>
     )
   )
 
-p1
-
-ggsave(
-  filename = here("results", "male", "accuracy.png"),
-  width = 8,
-  height = 1.2 * 8,
-  scale = 1.1
-)
 
 
 
-posterior_goals |> 
+p11 <- posterior_goals |> 
   mutate(
     diff_pred = home_goals - away_goals
   ) |> 
@@ -275,7 +269,7 @@ posterior_goals |>
     limits = c(0, 1)
   ) +
   labs(
-    title = "Kvörðun á eftirádreifingu fyrir markamismun leikja"
+    subtitle = "Markamismunur"
   )
 
 
@@ -335,7 +329,7 @@ p2 <- plot_dat |>
   ggplot(aes(median, max(game_nr) - game_nr + 1)) +
   geom_hline(
     yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
-    linewidth = 8,
+    linewidth = lw,
     alpha = 0.1
   ) +
   geom_point(
@@ -363,7 +357,7 @@ p2 <- plot_dat |>
   ) +
   scale_x_continuous(
     guide = guide_axis(cap = "both"),
-    breaks = seq(110, 210, by = 20)
+    breaks = seq(100, 220, by = 30)
   ) +
   scale_y_continuous(
     guide = guide_axis(cap = "both"),
@@ -404,14 +398,64 @@ p2 <- plot_dat |>
     )
   )
 
-p2
 
-ggsave(
-  filename = here("results", "male", "accuracy_totalgoals.png"),
-  width = 8,
-  height = 1.2 * 8,
-  scale = 1.15
-)
+p22 <- posterior_goals |> 
+  mutate(
+    diff_pred = home_goals + away_goals
+  ) |> 
+  select(
+    iteration, date, fit_date, home, away, diff_pred
+  ) |> 
+  inner_join(
+    d |> 
+      mutate(
+        diff_obs = home_goals + away_goals
+      ) |> 
+      select(
+        game_nr, date, home, away, diff_obs
+      ),
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  summarise(
+    p = mean(diff_obs < diff_pred),
+    .by = c(game_nr, date, fit_date, home, away)
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(game_nr)
+  ) |> 
+  arrange(p) |> 
+  mutate(
+    o = row_number() / (n() + 1)
+  ) |> 
+  ggplot(aes(o, p)) +
+  geom_abline(
+    intercept = 0,
+    slope = 1
+  ) +
+  geom_point() +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  labs(
+    subtitle = "Heildarfjöldi stiga"
+  )
 
 
 #### Home Goals ####
@@ -470,7 +514,7 @@ p3 <- plot_dat |>
   ggplot(aes(median, max(game_nr) - game_nr + 1)) +
   geom_hline(
     yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
-    linewidth = 8,
+    linewidth = lw,
     alpha = 0.1
   ) +
   geom_point(
@@ -540,16 +584,63 @@ p3 <- plot_dat |>
     )
   )
 
-p3
-
-
-ggsave(
-  filename = here("results", "male", "accuracy_home.png"),
-  width = 8,
-  height = 1.2 * 8,
-  scale = 1.15
-)
-
+p33 <- posterior_goals |> 
+  mutate(
+    diff_pred = home_goals
+  ) |> 
+  select(
+    iteration, date, fit_date, home, away, diff_pred
+  ) |> 
+  inner_join(
+    d |> 
+      mutate(
+        diff_obs = home_goals
+      ) |> 
+      select(
+        game_nr, date, home, away, diff_obs
+      ),
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  summarise(
+    p = mean(diff_obs < diff_pred),
+    .by = c(game_nr, date, fit_date, home, away)
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(game_nr)
+  ) |> 
+  arrange(p) |> 
+  mutate(
+    o = row_number() / (n() + 1)
+  ) |> 
+  ggplot(aes(o, p)) +
+  geom_abline(
+    intercept = 0,
+    slope = 1
+  ) +
+  geom_point() +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  labs(
+    subtitle = "Heimalið"
+  )
 
 #### Away Goals ####
 
@@ -607,7 +698,7 @@ p4 <- plot_dat |>
   ggplot(aes(median, max(game_nr) - game_nr + 1)) +
   geom_hline(
     yintercept = seq(1, length(unique(plot_dat$game_nr)), 2),
-    linewidth = 8,
+    linewidth = lw,
     alpha = 0.1
   ) +
   geom_point(
@@ -678,14 +769,63 @@ p4 <- plot_dat |>
   )
 
 
-p4
-
-ggsave(
-  filename = here("results", "male", "accuracy_away.png"),
-  width = 8,
-  height = 1.2 * 8,
-  scale = 1.15
-)
+p44 <- posterior_goals |> 
+  mutate(
+    diff_pred = away_goals
+  ) |> 
+  select(
+    iteration, date, fit_date, home, away, diff_pred
+  ) |> 
+  inner_join(
+    d |> 
+      mutate(
+        diff_obs = away_goals
+      ) |> 
+      select(
+        game_nr, date, home, away, diff_obs
+      ),
+    by = join_by(
+      date,
+      home,
+      away
+    )
+  ) |> 
+  summarise(
+    p = mean(diff_obs < diff_pred),
+    .by = c(game_nr, date, fit_date, home, away)
+  ) |> 
+  filter(
+    fit_date < date
+  ) |> 
+  filter(
+    fit_date == max(fit_date),
+    .by = c(game_nr)
+  ) |> 
+  arrange(p) |> 
+  mutate(
+    o = row_number() / (n() + 1)
+  ) |> 
+  ggplot(aes(o, p)) +
+  geom_abline(
+    intercept = 0,
+    slope = 1
+  ) +
+  geom_point() +
+  scale_x_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  scale_y_continuous(
+    guide = guide_axis(cap = "both"),
+    breaks = seq(0, 1, by = 0.1),
+    labels = label_percent(),
+    limits = c(0, 1)
+  ) +
+  labs(
+    subtitle = "Gestalið"
+  )
 
 
 library(patchwork)
@@ -762,6 +902,15 @@ library(patchwork)
 ggsave(
   filename = here("results", "male", "accuracy_home_away.png"),
   width = 8,
-  height = 1 * 8,
-  scale = 1.4
+  height = 0.621 * 8,
+  scale = 2.5
 )
+
+
+p11 + 
+  p22 + 
+  p33 + 
+  p44 +
+  plot_annotation(
+    title = "Kvörðun á spám og niðurstöðu leikja"
+  )

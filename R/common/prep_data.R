@@ -2,6 +2,7 @@
 box::use(
   readr[read_csv, write_csv],
   dplyr[
+    bind_rows,
     select,
     filter,
     arrange,
@@ -41,14 +42,78 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
   if (!sex %in% c("male", "female")) {
     stop("Sex must be either 'male' or 'female'")
   }
-
+  
   if (!dir.exists(here("results", sex, end_date))) {
     dir.create(here("results", sex, end_date), recursive = TRUE)
     dir.create(here("results", sex, end_date, "figures"), recursive = TRUE)
   }
-
+  
   #### Data Prep ####
-
+  
+  d_raw <- read_csv(
+    here("data", sex, "data.csv")
+  ) |>
+    select(
+      season,
+      division,
+      date,
+      home,
+      away,
+      home_goals,
+      away_goals
+    ) |>
+    arrange(date) |>
+    mutate(
+      team1_home = 1 * (division == 2),
+      team1_home = case_when(
+        (division == 1) &
+          (season == 2025) &
+          (date < clock::date_build(2025, 8, 25)) ~
+          1,
+        (division == 1) &
+          (season == 2022) &
+          (date < clock::date_build(2022, 9, 1)) ~
+          1,
+        (division == 1) &
+          (season == 2017) &
+          (date < clock::date_build(2017, 8, 31)) ~
+          1,
+        (division == 3) &
+          (season == 2023) &
+          (date < clock::date_build(2023, 8, 25)) ~
+          1,
+        (division == 3) &
+          (season == 2019) &
+          (date < clock::date_build(2019, 8, 31)) ~
+          1,
+        TRUE ~ team1_home
+      ),
+      casual = 1 * (division == 2), # If friendly international games, then casual,
+      casual = case_when(
+        (division == 1) &
+          (season == 2025) &
+          (date < clock::date_build(2025, 8, 25)) ~
+          1,
+        (division == 1) &
+          (season == 2022) &
+          (date < clock::date_build(2022, 9, 1)) ~
+          1,
+        (division == 1) &
+          (season == 2017) &
+          (date < clock::date_build(2017, 8, 31)) ~
+          1,
+        (division == 3) &
+          (season == 2023) &
+          (date < clock::date_build(2023, 8, 25)) ~
+          1,
+        (division == 3) &
+          (season == 2019) &
+          (date < clock::date_build(2019, 8, 31)) ~
+          1,
+        TRUE ~ casual
+      ) # If qualifyers for large tournaments, then casual.
+    )
+  
   # Read historical data
   d <- read_csv(
     here("data", sex, "data.csv")
@@ -119,24 +184,24 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
         TRUE ~ casual
       ) # If qualifyers for large tournaments, then casual.
     )
-
+  
   write_csv(
     d,
     here("results", sex, end_date, "d.csv")
   )
-
+  
   # Create team mapping
   teams <- tibble(
     team = unique(c(d$home, d$away))
   ) |>
     arrange(team) |>
     mutate(team_nr = row_number())
-
+  
   write_csv(
     teams,
     here("results", sex, end_date, "teams.csv")
   )
-
+  
   # Read and prepare next games for prediction
   next_games <- read_csv(
     here("data", sex, "schedule.csv")
@@ -153,9 +218,28 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     mutate(
       game_nr = row_number()
     )
-
+  
+  if (max(d_raw$date) > end_date) {
+    next_games <- d_raw |> 
+      filter(date > end_date) |> 
+      select(
+        date, division, home, away
+      ) |> 
+      bind_rows(next_games) |> 
+      filter(
+        home %in% teams$team,
+        away %in% teams$team
+      ) |> 
+      mutate(
+        game_nr = row_number()
+      )
+  }
+  
+  
+  
+  
   hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
-
+  
   next_games <- next_games |>
     mutate(
       home2 = case_when(
@@ -172,7 +256,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       home = home2,
       away = away2
     )
-
+  
   # Get current teams in the top league
   cur_top_teams <- teams |>
     semi_join(
@@ -191,7 +275,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
         )
       )
     )
-
+  
   # Calculate time differences between matches for each team
   timediffs <- d |>
     pivot_longer(c(home, away)) |>
@@ -216,7 +300,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       home_timediff = home,
       away_timediff = away
     )
-
+  
   # Calculate round numbers for each team
   rounds <- d |>
     pivot_longer(c(home, away)) |>
@@ -237,7 +321,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       home_round = home,
       away_round = away
     )
-
+  
   # Calculate round numbers for each team and season
   season_rounds <- d |>
     pivot_longer(c(home, away)) |>
@@ -259,7 +343,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       season_first = home
     ) |>
     select(-away)
-
+  
   # Prepare model data
   model_d <- d |>
     inner_join(
@@ -279,12 +363,12 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       teams |> rename(away_nr = team_nr),
       by = join_by(away == team)
     )
-
+  
   write_csv(
     model_d,
     here("results", sex, end_date, "model_d.csv")
   )
-
+  
   # Create time between matches matrix
   n_rounds <- max(c(model_d$home_round, model_d$away_round))
   time_between_matches <- matrix(
@@ -302,7 +386,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       model_d$away_round[i]
     ] <- model_d$away_timediff[i]
   }
-
+  
   next_game_dates <- next_games |>
     filter(division == 1) |>
     pivot_longer(c(home, away)) |>
@@ -315,7 +399,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       .by = value
     ) |>
     select(next_date = date, team = value)
-
+  
   latest_game_dates <- model_d |>
     pivot_longer(c(home, away)) |>
     select(date, team = value) |>
@@ -324,7 +408,7 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       .by = team
     ) |>
     rename(latest_date = date)
-
+  
   time_to_next_games <- next_game_dates |>
     inner_join(
       latest_game_dates
@@ -333,19 +417,19 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       timediff = as.numeric(next_date - latest_date)
     ) |>
     pull(timediff)
-
+  
   top_teams <- next_games |>
     filter(division == 1) |>
     pivot_longer(c(home, away)) |>
     distinct(value) |>
     rename(team = value) |>
     inner_join(teams)
-
+  
   write_csv(
     top_teams,
     here("results", sex, end_date, "top_teams.csv")
   )
-
+  
   next_games <- next_games |>
     inner_join(
       next_games |>
@@ -372,12 +456,12 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
       vars(home_timediff, away_timediff),
       \(x) pmin(x, 50)
     )
-
+  
   write_csv(
     next_games,
     here("results", sex, end_date, "next_games.csv")
   )
-
+  
   # Prepare prediction data
   pred_d <- next_games |>
     inner_join(
@@ -391,12 +475,12 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     mutate(
       team1_home_pred = 1 * (home %in% hosts)
     )
-
+  
   write_csv(
     pred_d,
     here("results", sex, end_date, "pred_d.csv")
   )
-
+  
   # Prepare Stan data
   stan_data <- list(
     K = nrow(teams),
@@ -425,6 +509,6 @@ prepare_football_data <- function(sex, end_date = Sys.Date()) {
     top_teams = top_teams$team_nr,
     N_top_teams = nrow(top_teams)
   )
-
+  
   return(stan_data)
 }

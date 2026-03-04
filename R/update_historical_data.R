@@ -6,3 +6,4 @@ box::use(
 download_data$update_historical_results(
   leagues$eurobasket
 )
+

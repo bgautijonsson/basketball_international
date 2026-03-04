@@ -107,18 +107,18 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
   if (!sex %in% c("male", "female")) {
     stop("Sex must be either 'male' or 'female'")
   }
-  
+
   #### Data Prep ####
   results <- read_rds(here("results", sex, end_date, "fit.rds"))
-  
+
   d <- read_csv(here("results", sex, end_date, "d.csv"))
   teams <- read_csv(here("results", sex, end_date, "teams.csv"))
   next_games <- read_csv(here("results", sex, end_date, "next_games.csv"))
   top_teams <- read_csv(here("results", sex, end_date, "top_teams.csv"))
   pred_d <- read_csv(here("results", sex, end_date, "pred_d.csv"))
-  
+
   #### Next-Round Predictions ####
-  
+
   posterior_goals <- results$draws(c("goals1_pred", "goals2_pred")) |>
     as_draws_df() |>
     as_tibble() |>
@@ -158,10 +158,10 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       home_goals,
       away_goals
     )
-  
+
   posterior_goals |>
     write_csv(here("results", "male", end_date, "posterior_goals.csv"))
-  
+
   plot_dat <- posterior_goals |>
     mutate(
       goal_diff = away_goals - home_goals
@@ -185,8 +185,8 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       ),
       lower = quantile(goal_diff, 0.5 - coverage / 2),
       upper = quantile(goal_diff, 0.5 + coverage / 2),
-      home_win = mean(goal_diff < 0),
-      away_win = 1 - home_win,
+      home_win = mean(goal_diff <= 0.5),
+      away_win = mean(goal_diff >= 0.5),
       .by = c(game_nr, date, home, away)
     ) |>
     filter(
@@ -198,12 +198,12 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       home = glue("{home} ({home_win})"),
       away = glue("{away} ({away_win})")
     )
-  
+
   plot_dat |>
     filter(
       str_detect(away, "Iceland")
     )
-  
+
   plot_dat |>
     ggplot(aes(median, max(game_nr) - game_nr + 1)) +
     geom_vline(
@@ -301,7 +301,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         "Sigurlíkur merktar inni í sviga"
       )
     )
-  
+
   ggsave(
     filename = here(
       "results",
@@ -314,9 +314,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     height = 0.8 * 8,
     scale = 1.2
   )
-  
+
   #### Group Stage Predictions ####
-  
+
   groups <- tibble(
     data = list(
       group_a = list(
@@ -361,7 +361,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       .by = name
     ) |>
     select(group, team = value)
-  
+
   posterior_goals <- results$draws(c("goals1_pred", "goals2_pred")) |>
     as_draws_df() |>
     as_tibble() |>
@@ -385,7 +385,8 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       by = "game_nr"
     ) |>
     filter(
-      date >= end_date
+      date >= end_date,
+      date <= clock::date_build(2025, 09, 04)
     ) |>
     select(
       iteration = .draw,
@@ -397,10 +398,11 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       home_goals,
       away_goals
     )
-  
+
   base_points <- d |>
     filter(
       date >= clock::date_build(2025, 8, 27),
+      date <= clock::date_build(2025, 09, 04),
       division == 1
     ) |>
     mutate(
@@ -435,7 +437,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       .by = c(team)
     ) |>
     arrange(desc(base_points))
-  
+
   p_top <- posterior_goals |>
     mutate(
       result = case_when(
@@ -518,7 +520,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     ) |>
     arrange(group, desc(mean_points)) |>
     select(-lower_pos, -upper_pos)
-  
+
   p_top |>
     mutate(
       group = str_c(group, "-riðill")
@@ -618,11 +620,11 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       ),
       expand = c(1, 5, 1, -2)
     )
-  
+
   #### Posterior Results ####
-  
+
   #### Current Strengths ####
-  
+
   plot_dat_away <- results$draws("cur_strength_away") |>
     as_draws_df() |>
     as_tibble() |>
@@ -666,7 +668,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         levels = unique(team)[order(unique(median[type == "Samtals"]))]
       )
     )
-  
+
   plot_dat_home <- results$draws("cur_strength_home") |>
     as_draws_df() |>
     as_tibble() |>
@@ -710,7 +712,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         levels = unique(team)[order(unique(median[type == "Samtals"]))]
       )
     )
-  
+
   plot_dat <- plot_dat_away |>
     mutate(
       loc = "Gestir"
@@ -731,9 +733,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         pivot_longer(c(home, away), values_to = "team") |>
         distinct(team)
     )
-  
+
   dodge <- 0.3
-  
+
   plot_dat |>
     semi_join(
       groups
@@ -789,16 +791,16 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       title = "Styrkur landsliða fyrir EM karla í körfubolta",
       subtitle = "Metið með körfuboltalíkani Metils"
     )
-  
+
   ggsave(
     filename = here("results", sex, end_date, "figures", "styrkur.png"),
     width = 8,
     height = 0.7 * 8,
     scale = 1.1
   )
-  
+
   hosts <- c("Poland", "Cyprus", "Finland", "Latvia")
-  
+
   plot_dat |>
     semi_join(groups) |>
     filter(
@@ -874,9 +876,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       ),
       expand = c(1, 5, 1, -2)
     )
-  
+
   #### Home Advantages ####
-  
+
   results$draws("home_advantage_tot") |>
     as_draws_df() |>
     as_tibble() |>
@@ -993,7 +995,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       title = "Heimavallaráhrif landsliða karla í körfubolta",
       subtitle = "Skora lið fleiri stig á heimavelli? Skora gestirnir þeirra færri stig?"
     )
-  
+
   ggsave(
     filename = here(
       "results",
@@ -1006,10 +1008,9 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     height = 0.6 * 8,
     scale = 1.4
   )
-  
-  
+
   #### Strength gains during championships ####
-  
+
   plot_dat <- results$draws("off_casual") |>
     as_draws_df() |>
     as_tibble() |>
@@ -1076,8 +1077,8 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       ),
       type = fct_relevel(type, "Sókn", "Vörn", "Samtals")
     )
-  
-  plot_dat |> 
+
+  plot_dat |>
     ggplot(aes(median, team)) +
     geom_vline(
       xintercept = 0,
@@ -1129,14 +1130,14 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
       title = "Spila lið verr í vináttuleikjum?",
       subtitle = "Skora lið færri stig í vináttuleikjum? Fá þau á sig fleiri stig?"
     )
-  
+
   ggsave(
     filename = here("results", "male", end_date, "figures", "casual.png"),
     width = 8,
     height = 0.9 * 8,
     scale = 1.1
   )
-  
+
   plot_dat_away <- results$draws("cur_strength_away") |>
     as_draws_df() |>
     as_tibble() |>
@@ -1180,7 +1181,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
         levels = unique(team)[order(unique(median[type == "Samtals"]))]
       )
     )
-  
+
   plot_dat |>
     distinct(
       team,
@@ -1228,7 +1229,7 @@ generate_model_results <- function(sex = "male", end_date = Sys.Date()) {
     ) |>
     tab_options(
       table.background.color = "#fdfcfc"
-    ) |> 
+    ) |>
     gtsave(
       filename = here(
         "results",

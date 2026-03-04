@@ -1,4 +1,26 @@
 season,division,date,home,away,home_goals,away_goals
+2025,1,2025-09-14,Turkey,Germany,83,88
+2025,1,2025-09-14,Greece,Finland,92,89
+2025,1,2025-09-12,Greece,Turkey,68,94
+2025,1,2025-09-12,Germany,Finland,98,86
+2025,1,2025-09-10,Germany,Slovenia,99,91
+2025,1,2025-09-10,Finland,Georgia,93,79
+2025,1,2025-09-09,Lithuania,Greece,76,87
+2025,1,2025-09-09,Turkey,Poland,91,77
+2025,1,2025-09-07,Greece,Israel,84,79
+2025,1,2025-09-07,Italy,Slovenia,77,84
+2025,1,2025-09-07,France,Georgia,70,80
+2025,1,2025-09-07,Poland,Bosnia & Herzegovina,80,72
+2025,1,2025-09-06,Serbia,Finland,86,92
+2025,1,2025-09-06,Lithuania,Latvia,88,79
+2025,1,2025-09-06,Germany,Portugal,85,58
+2025,1,2025-09-06,Turkey,Sweden,85,79
+2025,1,2025-09-04,Poland,Belgium,69,70
+2025,1,2025-09-04,Spain,Greece,86,90
+2025,1,2025-09-04,Italy,Cyprus,89,54
+2025,1,2025-09-04,Israel,Slovenia,96,106
+2025,1,2025-09-04,Bosnia & Herzegovina,Georgia,84,76
+2025,1,2025-09-04,France,Iceland,114,74
 2025,1,2025-09-03,Turkey,Serbia,95,90
 2025,1,2025-09-03,Finland,Germany,61,91
 2025,1,2025-09-03,Czech Republic,Latvia,75,109
@@ -179,30 +201,6 @@ season,division,date,home,away,home_goals,away_goals
 2025,1,2025-02-20,Latvia,Spain,83,66
 2025,1,2025-02-20,Turkey,Italy,67,80
 2025,1,2025-02-20,Hungary,Iceland,87,78
-2025,1,2024-11-25,Italy,Iceland,74,81
-2025,1,2024-11-25,Belgium,Latvia,83,85
-2025,1,2024-11-25,Spain,Slovakia,84,71
-2025,1,2024-11-25,Germany,Sweden,80,61
-2025,1,2024-11-25,Israel,Ukraine,88,75
-2025,1,2024-11-25,Bulgaria,Montenegro,86,90
-2025,1,2024-11-25,Hungary,Turkey,76,81
-2025,1,2024-11-25,Slovenia,Portugal,83,82
-2025,1,2024-11-24,Serbia,Denmark,98,51
-2025,1,2024-11-24,Lithuania,North Macedonia,94,72
-2025,1,2024-11-24,Bosnia & Herzegovina,Croatia,110,90
-2025,1,2024-11-24,Greece,Great Britain,77,67
-2025,1,2024-11-24,Estonia,Poland,86,88
-2025,1,2024-11-24,France,Cyprus,85,70
-2025,1,2024-11-24,Georgia,Finland,81,64
-2025,1,2024-11-24,Netherlands,Czech Republic,77,70
-2025,1,2024-11-23,Ukraine,Israel,73,86
-2025,1,2024-11-22,Iceland,Italy,71,95
-2025,1,2024-11-22,Portugal,Slovenia,82,74
-2025,1,2024-11-22,Montenegro,Bulgaria,85,62
-2025,1,2024-11-22,Sweden,Germany,73,72
-2025,1,2024-11-22,Turkey,Hungary,92,66
-2025,1,2024-11-22,Latvia,Belgium,75,72
-2025,1,2024-11-22,Slovakia,Spain,72,76
 2024,2,2024-08-14,Senegal,Tunisia,60,65
 2024,2,2024-08-12,Senegal,Tunisia,66,64
 2024,2,2024-07-23,Spain,Puerto Rico,107,84
